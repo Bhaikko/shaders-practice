@@ -12,7 +12,6 @@ SRCS_CPP= \
 	./Helper/Window/Window.cpp \
 	./Helper/Texture/Texture.cpp \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
-	./Model/Model.cpp \
 	main.cpp \
 	
 run: 
