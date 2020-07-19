@@ -20,8 +20,6 @@ public:
 		std::string tesShader = "", 
 		std::string tcsShader = ""
 	);
-	
-	void UseShader() { glUseProgram(this->shader); }
 
 	~Shader();
 
@@ -39,6 +37,7 @@ private:
 
 public:
 	GLuint GetShaderProgramID() { return this->shader; }
+	void UseShader() { glUseProgram(this->shader); }
 
 };
 

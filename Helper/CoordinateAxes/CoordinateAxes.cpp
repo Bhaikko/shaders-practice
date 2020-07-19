@@ -20,10 +20,21 @@ CoordinateAxes::CoordinateAxes()
     zIndices[0] = 0;
     zIndices[1] = 3;
 
+    this->shader = new Shader();
 }
 
 void CoordinateAxes::InitialiseCoordinateAxes()
 {
+    shader->CreateFromFiles(
+        "./Helper/CoordinateAxes/shaders/CoordinateAxes.vert",
+        "./Helper/CoordinateAxes/shaders/CoordinateAxes.frag"
+    );
+
+    shaderID = shader->GetShaderProgramID();
+    uModel = glGetUniformLocation(shaderID, "model");
+    uProjection = glGetUniformLocation(shaderID, "projection");
+    uView = glGetUniformLocation(shaderID, "view");
+
     AllocateBufferObjects(xVAO, xVBO, xIBO, xIndices);
     AllocateBufferObjects(yVAO, yVBO, yIBO, yIndices);
     AllocateBufferObjects(zVAO, zVBO, zIBO, zIndices);
@@ -48,8 +59,17 @@ void CoordinateAxes::AllocateBufferObjects(GLuint &VAO, GLuint &VBO, GLuint &IBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);    
 }
 
-void CoordinateAxes::RenderCoordinateAxes()
+void CoordinateAxes::RenderCoordinateAxes(
+    glm::mat4 model,
+    glm::mat4 projection,
+    glm::mat4 view 
+)
 {
+    glUniformMatrix4fv(this->uModel, 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(this->uProjection, 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(this->uView, 1, GL_FALSE, glm::value_ptr(view));
+
+    shader->UseShader();
     DrawSingleCoordinateAxis(xVAO, xIBO);
     DrawSingleCoordinateAxis(yVAO, yIBO);
     DrawSingleCoordinateAxis(zVAO, zIBO);
@@ -67,5 +87,5 @@ void CoordinateAxes::DrawSingleCoordinateAxis(GLuint &VAO, GLuint &IBO)
 
 CoordinateAxes::~CoordinateAxes()
 {
-    
+    delete shader;
 }

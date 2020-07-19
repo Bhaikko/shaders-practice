@@ -13,6 +13,7 @@
 
 #include "./Helper/Window/Window.h"
 #include "./Helper/Camera/Camera.h"
+#include "./Helper/Shader/Shader.h"
 
 #include "./Helper/commonValues.cpp"
 
@@ -43,6 +44,10 @@ int main(int argc, const char* argv[])
 
     projectionMatrix = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / (GLfloat)mainWindow.getBufferHeight(), 0.1f, 100.0f);
 
+    glm::mat4 modelMatrix(1.0f);
+
+    coordinateAxes.InitialiseCoordinateAxes();
+
     while (!mainWindow.GetShouldClose()) {
         GLfloat now = glfwGetTime();
         deltaTime = now - lastTime;
@@ -56,6 +61,7 @@ int main(int argc, const char* argv[])
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, camera.CalculateViewMatrix());
 
         mainWindow.SwapBuffers();
     }

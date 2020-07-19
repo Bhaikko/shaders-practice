@@ -5,15 +5,27 @@
 
 #include <GL/glew.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "./../Shader/Shader.h"
+
 class CoordinateAxes
 {
     public:
         CoordinateAxes();
         void InitialiseCoordinateAxes();
-        void RenderCoordinateAxes();
+        void RenderCoordinateAxes(
+            glm::mat4 model,
+            glm::mat4 projection,
+            glm::mat4 view
+        );
         ~CoordinateAxes();
 
     private:
+        Shader* shader;
+        GLuint shaderID;
+
         GLuint xVAO, xVBO, xIBO;
         GLuint yVAO, yVBO, yIBO;
         GLuint zVAO, zVBO, zIBO;
@@ -22,4 +34,9 @@ class CoordinateAxes
 
         void AllocateBufferObjects(GLuint &VAO, GLuint &VBO, GLuint &IBO, unsigned int indices[]);
         void DrawSingleCoordinateAxis(GLuint &VAO, GLuint &IBO);
+
+
+    private:
+        // Uniform Values
+        GLuint uModel, uProjection, uView;
 };

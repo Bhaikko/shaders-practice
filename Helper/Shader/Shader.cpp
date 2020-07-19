@@ -12,6 +12,7 @@ void Shader::CreateFromFiles(
 	std::string tesShader, 
 	std::string tcsShader
 ) {
+
 	std::string vShaderCode = readShaderFromFile(vShader.c_str());
 	std::string fShaderCode = readShaderFromFile(fShader.c_str());
 
