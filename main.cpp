@@ -19,6 +19,9 @@
 
 #include "./Helper/CoordinateAxes/CoordinateAxes.h"
 
+// Source Files for Testing Shaders
+#include "./Src/Chapter02/UniformBlock/UniformBlock.h"
+
 Window mainWindow;
 Camera camera;
 
@@ -26,6 +29,8 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 
 CoordinateAxes coordinateAxes;
+
+UniformBlock uniformBlock;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -48,6 +53,10 @@ int main(int argc, const char* argv[])
 
     coordinateAxes.InitialiseCoordinateAxes();
 
+    //  ################
+    uniformBlock.Init();
+    //  ################
+
     while (!mainWindow.GetShouldClose()) {
         GLfloat now = glfwGetTime();
         deltaTime = now - lastTime;
@@ -62,6 +71,8 @@ int main(int argc, const char* argv[])
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, camera.CalculateViewMatrix());
+
+        uniformBlock.Render();
 
         mainWindow.SwapBuffers();
     }

@@ -12,6 +12,7 @@ SRCS_CPP= \
 	./Helper/Window/Window.cpp \
 	./Helper/Texture/Texture.cpp \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
+	./Src/Chapter02/UniformBlock/UniformBlock.cpp \
 	main.cpp \
 	
 run: 
