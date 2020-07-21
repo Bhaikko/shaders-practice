@@ -20,7 +20,12 @@
 #include "./Helper/CoordinateAxes/CoordinateAxes.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter02/UniformBlock/UniformBlock.h"
+// Chapter 2
+// #include "./Src/Chapter02/UniformBlock/UniformBlock.h"
+
+// Chapter 3
+#include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
+
 
 Window mainWindow;
 Camera camera;
@@ -30,7 +35,8 @@ GLfloat lastTime = 0.0f;
 
 CoordinateAxes coordinateAxes;
 
-UniformBlock uniformBlock;
+// UniformBlock uniformBlock;
+SceneDiscard sceneDiscard;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -54,7 +60,9 @@ int main(int argc, const char* argv[])
     coordinateAxes.InitialiseCoordinateAxes();
 
     //  ################
-    uniformBlock.Init();
+    // uniformBlock.Init();
+    
+    sceneDiscard.Init();
     //  ################
 
     while (!mainWindow.GetShouldClose()) {
@@ -72,7 +80,8 @@ int main(int argc, const char* argv[])
 
         coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, camera.CalculateViewMatrix());
 
-        uniformBlock.Render();
+        // uniformBlock.Render();
+        sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
