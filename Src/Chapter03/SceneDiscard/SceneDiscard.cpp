@@ -13,7 +13,7 @@ void SceneDiscard::Init()
 
     shaderID = shader.GetShaderProgramID();
 
-    model.LoadModel("./Data/bunny.obj");
+    model.LoadModel("./Data/sphere.obj");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -35,10 +35,13 @@ void SceneDiscard::Init()
 
     glUniform3f(Material.Kd, 0.9f, 0.5f, 0.3f);
     glUniform3f(Light.Ld, 1.0f, 1.0f, 1.0f);
+
     glUniform3f(Material.Ka, 0.9f, 0.5f, 0.3f);
     glUniform3f(Light.La, 0.4f, 0.4f, 0.4f);
+
     glUniform3f(Material.Ks, 0.8f, 0.8f, 0.8f);
     glUniform3f(Light.Ls, 1.0f, 1.0f, 1.0f);
+
     glUniform1f(Material.Shininess, 100.0f);
 
 
@@ -63,7 +66,9 @@ void SceneDiscard::Render(
     glm::mat4 mv = view * model;
     glm::mat4 normalMatrix4fv = glm::transpose(glm::inverse(mv));
     glm::mat3 normalMatrix = glm::mat3(glm::vec3(normalMatrix4fv[0]), glm::vec3(normalMatrix4fv[1]), glm::vec3(normalMatrix4fv[2]));
-    glUniformMatrix4fv(NormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+
+    glUniformMatrix3fv(NormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
     this->model.RenderModel();
 }

@@ -37,19 +37,19 @@ vec3 PhongModel(vec3 position, vec3 n)
 {
     vec3 ambient = Light.La * Material.Ka;
     
-    vec3 s = normalize(Light.Position.xyz - position);
-    float sDotN = max(dot(s, n), 0.0);
-    vec3 diffuse = Light.Ld * Material.Kd * sDotN;
+    // vec3 s = normalize(Light.Position.xyz - position);
+    // float sDotN = max(dot(s, n), 0.0);
+    // vec3 diffuse = Light.Ld * Material.Kd * sDotN;
 
-    vec3 spec = vec3(0.0);
-    if (sDotN > 0.0) {
-        vec3 v = normalize(-position.xyz);
-        vec3 r = reflect(-s, n);
+    // vec3 spec = vec3(0.0);
+    // if (sDotN > 0.0) {
+    //     vec3 v = normalize(-position.xyz);
+    //     vec3 r = reflect(-s, n);
 
-        spec = Light.Ls * Material.Ks * pow(max(dot(r, v), 0.0), Material.Shininess);
-    }
+    //     spec = Light.Ls * Material.Ks * pow(max(dot(r, v), 0.0), Material.Shininess);
+    // }
 
-    return ambient + diffuse + spec;
+    return ambient  ;
 }
 
 void main()
@@ -59,8 +59,11 @@ void main()
 
     GetCamSpace(camNorm, camPosition);
 
-    FrontColor = PhongModel(camPosition, camNorm);
-    BackColor = PhongModel(camPosition, -camNorm);
+    // FrontColor = PhongModel(camPosition, camNorm);
+    // BackColor = PhongModel(camPosition, -camNorm);
+
+    FrontColor = vec3(1.0, 0.0, 0.0);
+    BackColor = vec3(0.0, 1.0, 0.0);
 
     gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(VertexPosition, 1.0);
 }

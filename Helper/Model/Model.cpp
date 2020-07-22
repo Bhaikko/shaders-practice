@@ -131,10 +131,10 @@ void Model::LoadModelDataIntoBuffers()
 void Model::RenderModel()
 {
     glBindVertexArray(VAO);    
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
+        // glEnable(GL_CULL_FACE);
+        // glCullFace(GL_BACK);
             glDrawArrays(GL_TRIANGLES, 0, verticesCount);   
-        glDisable(GL_CULL_FACE);
+        // glDisable(GL_CULL_FACE);
     glBindVertexArray(0);
     
 }
