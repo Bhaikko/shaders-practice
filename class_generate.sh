@@ -14,8 +14,16 @@ generate_files() {
 
 class_name=''
 
-while getopts 'c:d:' flag; do
+print_help() {
+    echo "-c to specify class name"
+    echo "-d to specify directory"
+
+}
+
+while getopts 'c:d:h' flag; do
     case "${flag}" in
+        h) print_help
+            exit 1;;
         c) class_name="${OPTARG}" ;;  
         d) generate_files "${OPTARG}" "$class_name" ;;
         
