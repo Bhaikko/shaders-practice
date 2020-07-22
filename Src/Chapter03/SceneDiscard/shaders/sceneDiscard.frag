@@ -8,12 +8,12 @@ layout (location = 0) out vec4 FragColor;
 
 void main()
 {
-    const float scale = 15.0;
+    const float scale = 30.0;
 
-    bvec2 toDiscard = greaterThan(fract(TexCoord * scale), vec2(0.1, 0.1));
+    bvec2 toDiscard = greaterThan(fract(TexCoord * scale), vec2(0.3, 0.3));
 
     if (all(toDiscard)) {
-        // FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        // FragColor = vec4(0.0, 0.0, 1.0, 1.0);
         discard;
     } else {
         if (gl_FrontFacing) {
