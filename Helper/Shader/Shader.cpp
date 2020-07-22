@@ -144,3 +144,13 @@ void Shader::CompileShaders(
 		return;
 	} 
 }
+
+void Shader::RegisterUniform(std::string uniformName)
+{
+	uniforms[uniformName] = glGetUniformLocation(shader, uniformName.c_str());
+}
+
+GLuint Shader::GetUniformLocation(std::string uniformName)
+{
+	return uniforms[uniformName];
+}

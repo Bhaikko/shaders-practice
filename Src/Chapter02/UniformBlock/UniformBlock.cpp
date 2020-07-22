@@ -13,7 +13,6 @@ void UniformBlock::Init()
         "./Src/Chapter02/UniformBlock/shaders/UniformBlock.frag"
     );
 
-    shaderProgram = shader->GetShaderProgramID();
 
     InitUniformBuffer();
 

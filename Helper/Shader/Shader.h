@@ -1,4 +1,5 @@
 #pragma once
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -38,6 +39,11 @@ private:
 public:
 	GLuint GetShaderProgramID() { return this->shader; }
 	void UseShader() { glUseProgram(this->shader); }
+	void RegisterUniform(std::string uniformName);
+	GLuint GetUniformLocation(std::string uniformName);
+
+private:
+	std::unordered_map<std::string, GLuint> uniforms;
 
 };
 

@@ -23,26 +23,8 @@ class SceneDiscard
 
     private:
         Shader shader;
-        GLuint shaderID;
-
         Model model;
 
-    private:
-        // Uniform Values
-        struct LightInfo {
-            GLuint Position;
-            GLuint La;
-            GLuint Ld;
-            GLuint Ls;
-        } Light;
-
-        struct MaterialInfo {
-            GLuint Ka;
-            GLuint Kd;
-            GLuint Ks;
-            GLuint Shininess;
-        } Material;
-
-        GLuint ModelMatrix, ViewMatrix, ProjectionMatrix, NormalMatrix;
+        GLuint ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 };

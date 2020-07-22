@@ -24,7 +24,6 @@ class CoordinateAxes
 
     private:
         Shader* shader;
-        GLuint shaderID;
 
         GLuint xVAO, xVBO, xIBO;
         GLuint yVAO, yVBO, yIBO;
@@ -35,8 +34,4 @@ class CoordinateAxes
         void AllocateBufferObjects(GLuint &VAO, GLuint &VBO, GLuint &IBO, unsigned int indices[]);
         void DrawSingleCoordinateAxis(GLuint &VAO, GLuint &IBO);
 
-
-    private:
-        // Uniform Values
-        GLuint uModel, uProjection, uView;
 };
