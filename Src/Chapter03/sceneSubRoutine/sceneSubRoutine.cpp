@@ -67,12 +67,7 @@ void SceneSubRoutine::Render(
 
     // Setting up normal matrix
     glm::mat4 mv = view * model;
-    glm::mat4 temp = glm::transpose(glm::inverse(mv));
-    glm::mat3 normalMatrix = glm::mat3(
-        glm::vec3(temp[0]),
-        glm::vec3(temp[1]),
-        glm::vec3(temp[2])
-    );
+    glm::mat3 normalMatrix = glm::inverseTranspose(mv);
 
     glUniformMatrix4fv(shader.GetUniformLocation("ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(shader.GetUniformLocation("ViewMatrix"), 1, GL_FALSE, glm::value_ptr(view));
@@ -87,12 +82,7 @@ void SceneSubRoutine::Render(
     // model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f,0.0f,0.0f));
 
     mv = view * model;
-    temp = glm::transpose(glm::inverse(mv));
-    normalMatrix = glm::mat3(
-        glm::vec3(temp[0]),
-        glm::vec3(temp[1]),
-        glm::vec3(temp[2])
-    );
+    normalMatrix = glm::inverseTranspose(mv);
 
     glUniformMatrix4fv(shader.GetUniformLocation("ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix3fv(shader.GetUniformLocation("NormalMatrix"), 1, GL_FALSE, glm::value_ptr(normalMatrix));

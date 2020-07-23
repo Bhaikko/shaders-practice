@@ -25,7 +25,8 @@
 
 // Chapter 3
 // #include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
-#include "./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.h"
+// #include "./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.h"
+#include "./Src/Chapter03/Fog/Fog.h"
 
 
 Window mainWindow;
@@ -38,7 +39,8 @@ CoordinateAxes coordinateAxes;
 
 // UniformBlock uniformBlock;
 // SceneDiscard sceneDiscard;
-SceneSubRoutine sceneSubRoutine;
+// SceneSubRoutine sceneSubRoutine;
+Fog fog;
 
 
 glm::mat4 projectionMatrix(1.0f);
@@ -66,10 +68,13 @@ int main(int argc, const char* argv[])
     // uniformBlock.Init();
     
     // sceneDiscard.Init();
-    sceneSubRoutine.Init();
+    // sceneSubRoutine.Init();
+    fog.Init();
     //  ################
 
-    std::cout << "Scene Init Done" << std::endl;
+    glEnable(GL_DEPTH_TEST);
+    
+    std::cout << "[+] Scene Init Done" << std::endl;
 
     while (!mainWindow.GetShouldClose()) {
         GLfloat now = glfwGetTime();
@@ -88,7 +93,8 @@ int main(int argc, const char* argv[])
 
         // uniformBlock.Render();
         // sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
-        sceneSubRoutine.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
+        // sceneSubRoutine.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
+        fog.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
