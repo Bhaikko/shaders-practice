@@ -135,7 +135,7 @@ GLfloat Window::getYChange()
 
 Window::~Window()
 {
-    glfwDestroyWindow(mainWindow);
-    glfwTerminate();
+    // glfwDestroyWindow(mainWindow);
+    // glfwTerminate();
 }
 

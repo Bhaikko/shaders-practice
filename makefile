@@ -1,6 +1,6 @@
 CXX = g++
 RM = rm -f
-CPPFLAGS =
+CPPFLAGS = -std=c++11 -Wall -g
 
 GlewLibs=-lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl
 GlfwLibs=-lGLEW 
@@ -19,4 +19,4 @@ SRCS_CPP= \
 	main.cpp \
 	
 run: 
-	$(CXX) $(SRCS_CPP) -o application $(GlewLibs) $(GlfwLibs)
+	$(CXX) $(SRCS_CPP) -o application $(GlewLibs) $(GlfwLibs) $(CPPFLAGS)
