@@ -24,7 +24,8 @@
 // #include "./Src/Chapter02/UniformBlock/UniformBlock.h"
 
 // Chapter 3
-#include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
+// #include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
+#include "./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.h"
 
 
 Window mainWindow;
@@ -36,7 +37,9 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 
 // UniformBlock uniformBlock;
-SceneDiscard sceneDiscard;
+// SceneDiscard sceneDiscard;
+SceneSubRoutine sceneSubRoutine;
+
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -62,8 +65,11 @@ int main(int argc, const char* argv[])
     //  ################
     // uniformBlock.Init();
     
-    sceneDiscard.Init();
+    // sceneDiscard.Init();
+    sceneSubRoutine.Init();
     //  ################
+
+    std::cout << "Scene Init Done" << std::endl;
 
     while (!mainWindow.GetShouldClose()) {
         GLfloat now = glfwGetTime();
@@ -81,7 +87,8 @@ int main(int argc, const char* argv[])
         coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, camera.CalculateViewMatrix());
 
         // uniformBlock.Render();
-        sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
+        // sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
+        sceneSubRoutine.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
 
         mainWindow.SwapBuffers();
     }

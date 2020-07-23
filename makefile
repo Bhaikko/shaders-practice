@@ -15,6 +15,7 @@ SRCS_CPP= \
 	./Helper/Model/Model.cpp \
 	./Src/Chapter02/UniformBlock/UniformBlock.cpp \
 	./Src/Chapter03/SceneDiscard/SceneDiscard.cpp \
+	./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.cpp \
 	main.cpp \
 	
 run: 

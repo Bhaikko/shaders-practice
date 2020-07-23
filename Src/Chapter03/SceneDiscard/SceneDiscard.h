@@ -25,6 +25,4 @@ class SceneDiscard
         Shader shader;
         Model model;
 
-        GLuint ModelMatrix, ViewMatrix, ProjectionMatrix;
-
 };
