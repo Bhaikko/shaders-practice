@@ -18,6 +18,7 @@ SRCS_CPP= \
 	./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.cpp \
 	./Src/Chapter03/Fog/Fog.cpp \
 	./Src/Chapter04/PBR/PBR.cpp \
+	./Src/Chapter04/ToonShading/ToonShading.cpp \
 	main.cpp \
 	
 run: 

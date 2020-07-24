@@ -27,7 +27,9 @@
 // #include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
 // #include "./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.h"
 // #include "./Src/Chapter03/Fog/Fog.h"
-#include "./Src/Chapter04/PBR/PBR.h"
+
+// #include "./Src/Chapter04/PBR/PBR.h"
+#include "./Src/Chapter04/ToonShading/ToonShading.h"
 
 
 Window mainWindow;
@@ -43,7 +45,8 @@ CoordinateAxes coordinateAxes;
 // SceneSubRoutine sceneSubRoutine;
 // Fog fog;
 
-PBR pbr;
+// PBR pbr;
+ToonShading toonShading;
 
 
 glm::mat4 projectionMatrix(1.0f);
@@ -73,7 +76,8 @@ int main(int argc, const char* argv[])
     // sceneDiscard.Init();
     // sceneSubRoutine.Init();
     // fog.Init();
-    pbr.Init();
+    // pbr.Init();
+    toonShading.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -99,8 +103,11 @@ int main(int argc, const char* argv[])
         // sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
         // sceneSubRoutine.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
         // fog.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
-        pbr.Render(camera.CalculateViewMatrix(), projectionMatrix);
-        pbr.Update(deltaTime);
+        // pbr.Render(camera.CalculateViewMatrix(), projectionMatrix);
+        // pbr.Update(deltaTime);
+        toonShading.Render(camera.CalculateViewMatrix(), projectionMatrix);
+        toonShading.Update(deltaTime);
+
 
         mainWindow.SwapBuffers();
     }
