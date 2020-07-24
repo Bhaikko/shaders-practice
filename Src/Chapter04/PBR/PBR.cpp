@@ -11,8 +11,8 @@ PBR::PBR()
 void PBR::Init()
 {
     shader.CreateFromFiles(
-        "./Src/Chapter03/PBR/shaders/PBR.vert",
-        "./Src/Chapter03/PBR/shaders/PBR.frag"
+        "./Src/Chapter04/PBR/shaders/PBR.vert",
+        "./Src/Chapter04/PBR/shaders/PBR.frag"
     );
 
     sphere.LoadModel("./Data/sphere.obj");

@@ -27,7 +27,7 @@
 // #include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
 // #include "./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.h"
 // #include "./Src/Chapter03/Fog/Fog.h"
-#include "./Src/Chapter03/PBR/PBR.h"
+#include "./Src/Chapter04/PBR/PBR.h"
 
 
 Window mainWindow;
@@ -42,6 +42,7 @@ CoordinateAxes coordinateAxes;
 // SceneDiscard sceneDiscard;
 // SceneSubRoutine sceneSubRoutine;
 // Fog fog;
+
 PBR pbr;
 
 
