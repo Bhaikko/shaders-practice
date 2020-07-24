@@ -98,7 +98,7 @@ void Model::LoadModel(const char* filePath)
 
     verticesCount = meshVertices.size();
     meshData = new GLfloat[verticesCount];
-    for (long long i = 0; i < meshVertices.size(); i++) {
+    for (unsigned long long i = 0; i < meshVertices.size(); i++) {
         meshData[i] = meshVertices[i];
     }
 

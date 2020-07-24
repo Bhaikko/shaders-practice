@@ -26,7 +26,8 @@
 // Chapter 3
 // #include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
 // #include "./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.h"
-#include "./Src/Chapter03/Fog/Fog.h"
+// #include "./Src/Chapter03/Fog/Fog.h"
+#include "./Src/Chapter03/PBR/PBR.h"
 
 
 Window mainWindow;
@@ -40,7 +41,8 @@ CoordinateAxes coordinateAxes;
 // UniformBlock uniformBlock;
 // SceneDiscard sceneDiscard;
 // SceneSubRoutine sceneSubRoutine;
-Fog fog;
+// Fog fog;
+PBR pbr;
 
 
 glm::mat4 projectionMatrix(1.0f);
@@ -69,7 +71,8 @@ int main(int argc, const char* argv[])
     
     // sceneDiscard.Init();
     // sceneSubRoutine.Init();
-    fog.Init();
+    // fog.Init();
+    pbr.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -94,7 +97,9 @@ int main(int argc, const char* argv[])
         // uniformBlock.Render();
         // sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
         // sceneSubRoutine.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
-        fog.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
+        // fog.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
+        pbr.Render(camera.CalculateViewMatrix(), projectionMatrix);
+        pbr.Update(deltaTime);
 
         mainWindow.SwapBuffers();
     }

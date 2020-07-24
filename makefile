@@ -17,6 +17,7 @@ SRCS_CPP= \
 	./Src/Chapter03/SceneDiscard/SceneDiscard.cpp \
 	./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.cpp \
 	./Src/Chapter03/Fog/Fog.cpp \
+	./Src/Chapter03/PBR/PBR.cpp \
 	main.cpp \
 	
 run: 
