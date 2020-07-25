@@ -23,7 +23,7 @@ class CoordinateAxes
         ~CoordinateAxes();
 
     private:
-        Shader* shader;
+        Shader shader;
 
         GLuint xVAO, xVBO, xIBO;
         GLuint yVAO, yVBO, yIBO;
