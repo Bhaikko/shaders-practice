@@ -3,9 +3,6 @@
 Model::Model()
 {
     VAO = 0;
-    VBO = 0;
-    IBO = 0;
-    verticesCount = 0;
 }
 
 void Model::LoadModel(const char* filePath)
@@ -17,12 +14,6 @@ void Model::LoadModel(const char* filePath)
     }
 
     std::string line;
-    std::vector<glm::vec3> vertices;
-    std::vector<glm::vec2> uvs;
-    std::vector<glm::vec3> normals;
-
-    std::vector<GLfloat> meshVertices;
-
 
     while (std::getline(in, line)) {
 
@@ -67,39 +58,25 @@ void Model::LoadModel(const char* filePath)
             uv1--; uv2--; uv3--;
             norm1--; norm2--; norm3--;
 
-            meshVertices.push_back(vertices[v1].x);
-            meshVertices.push_back(vertices[v1].y);
-            meshVertices.push_back(vertices[v1].z);
-            meshVertices.push_back(uvs[uv1].x);
-            meshVertices.push_back(uvs[uv1].y);
-            meshVertices.push_back(normals[norm1].x);
-            meshVertices.push_back(normals[norm1].y);
-            meshVertices.push_back(normals[norm1].z);
+            FaceIndex faceIndexes[3];
+            faceIndexes[0].vertexIndex = v1;
+            faceIndexes[0].textureCoordIndex = uv1;
+            faceIndexes[0].normalIndex = norm1;
 
-            meshVertices.push_back(vertices[v2].x);
-            meshVertices.push_back(vertices[v2].y);
-            meshVertices.push_back(vertices[v2].z);
-            meshVertices.push_back(uvs[uv2].x);
-            meshVertices.push_back(uvs[uv2].y);
-            meshVertices.push_back(normals[norm2].x);
-            meshVertices.push_back(normals[norm2].y);
-            meshVertices.push_back(normals[norm2].z);
+            faceIndexes[1].vertexIndex = v2;
+            faceIndexes[1].textureCoordIndex = uv2;
+            faceIndexes[1].normalIndex = norm2;
+            
+            faceIndexes[2].vertexIndex = v3;
+            faceIndexes[2].textureCoordIndex = uv3;
+            faceIndexes[2].normalIndex = norm3;
 
-            meshVertices.push_back(vertices[v3].x);
-            meshVertices.push_back(vertices[v3].y);
-            meshVertices.push_back(vertices[v3].z);
-            meshVertices.push_back(uvs[uv3].x);
-            meshVertices.push_back(uvs[uv3].y);
-            meshVertices.push_back(normals[norm3].x);
-            meshVertices.push_back(normals[norm3].y);
-            meshVertices.push_back(normals[norm3].z);
+            for (unsigned int i = 0; i < 3; i++) {
+                faces.push_back(faceIndexes[i]);
+            }
+
+
         }
-    }
-
-    verticesCount = meshVertices.size();
-    meshData = new GLfloat[verticesCount];
-    for (unsigned long long i = 0; i < meshVertices.size(); i++) {
-        meshData[i] = meshVertices[i];
     }
 
     LoadModelDataIntoBuffers();
@@ -107,24 +84,65 @@ void Model::LoadModel(const char* filePath)
 
 void Model::LoadModelDataIntoBuffers()
 {
+    GLuint VBO;
+    GLfloat* data = nullptr;
+
+
     glGenVertexArrays(1, &VAO); 
     glBindVertexArray(VAO); 
 
-        glGenBuffers(1, &VBO);  
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, verticesCount * sizeof(meshData[0]), meshData, GL_STATIC_DRAW);
+        // Binding Vertex Data
+        data = new GLfloat[faces.size() * 3];
+        unsigned int index = 0;
+        for (unsigned long long i = 0; i < faces.size(); i++) {
+            data[index++] = vertices[faces[i].vertexIndex].x;
+            data[index++] = vertices[faces[i].vertexIndex].y;
+            data[index++] = vertices[faces[i].vertexIndex].z;
+        }
 
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(meshData[0]) * 8, 0);
+        glGenBuffers(1, &VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, 3 * faces.size() * sizeof(data[0]), data, GL_STATIC_DRAW);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(data[0]) * 3, 0);
             glEnableVertexAttribArray(0);
 
-            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(meshData[0]) * 8, (void*)(sizeof(meshData[0]) * 3));
+        delete data;
+        index = 0;
+        
+        // Binding UVs data
+        data = new GLfloat[faces.size() * 2];
+        for (unsigned long long i = 0; i < faces.size(); i++) {
+            data[index++] = uvs[faces[i].textureCoordIndex].x;
+            data[index++] = uvs[faces[i].textureCoordIndex].y;
+        }
+
+        glGenBuffers(1, &VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, faces.size() * sizeof(data[0]) * 2, data, GL_STATIC_DRAW);
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(data[0]) * 2, 0);
             glEnableVertexAttribArray(1);
+        
+        delete data;
+        index = 0;
 
-            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(meshData[0]) * 8, (void*)(sizeof(meshData[0]) * 5));
+        // Binding Normal Data
+        data = new GLfloat[faces.size() * 3];
+        for (unsigned long long i = 0; i < faces.size(); i++) {
+            data[index++] = normals[faces[i].normalIndex].x;
+            data[index++] = normals[faces[i].normalIndex].y;
+            data[index++] = normals[faces[i].normalIndex].z;
+        }
+
+        glGenBuffers(1, &VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, faces.size() * sizeof(data[0]) * 3, data, GL_STATIC_DRAW);
+            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(data[0]) * 3, 0);
             glEnableVertexAttribArray(2);
+        
+        delete data;
+        index = 0;
 
-        glBindBuffer(GL_ARRAY_BUFFER, 0);   
-
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
@@ -133,10 +151,21 @@ void Model::RenderModel()
     glBindVertexArray(VAO);    
         // glEnable(GL_CULL_FACE);
         // glCullFace(GL_BACK);
-            glDrawArrays(GL_TRIANGLES, 0, verticesCount);   
+            glDrawArrays(GL_TRIANGLES, 0, faces.size());   
         // glDisable(GL_CULL_FACE);
     glBindVertexArray(0);
     
+}
+
+void Model::GenerateTangents()
+{
+    // std::vector<glm::vec3> tan1Accum(verticesCount); 
+    // std::vector<glm::vec3> tan2Accum(verticesCount); 
+    // tangents.resize(verticesCount);
+
+    // for (unsigned int i = 0; i < facesCount; i++) {
+
+    // }
 }
 
 Model::~Model()
