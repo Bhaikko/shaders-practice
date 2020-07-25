@@ -8,16 +8,8 @@ Texture::Texture()
 	bitDepth = 0;
 }
 
-Texture::Texture(std::string fileLoc)
-{
-	textureID = 0;
-	width = 0;
-	height = 0;
-	bitDepth = 0;
-	fileLocation = fileLoc;
-}
 
-void Texture::LoadTexture()
+void Texture::LoadTexture(std::string fileLocation)
 {
 	unsigned char* texData = stbi_load(fileLocation.c_str(), &width, &height, &bitDepth, 0);
 	if (!texData) {
@@ -51,9 +43,9 @@ void Texture::ClearTexture()
 	
 }
 
-void Texture::UseTexture()
+void Texture::UseTexture(GLenum textureUnit)
 {
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(textureUnit);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 

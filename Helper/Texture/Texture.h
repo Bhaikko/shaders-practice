@@ -12,16 +12,13 @@ class Texture
 {
 public:
 	Texture();
-	Texture(std::string fileLoc);
 	~Texture();
 
-	void LoadTexture();
-	void UseTexture();
+	void LoadTexture(std::string fileLocation);
+	void UseTexture(GLenum textureUnit);
 	void ClearTexture();
 
 private:
 	GLuint textureID;	
 	int width, height, bitDepth;
-
-	std::string fileLocation;
 };

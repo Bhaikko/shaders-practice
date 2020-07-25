@@ -19,6 +19,7 @@ SRCS_CPP= \
 	./Src/Chapter03/Fog/Fog.cpp \
 	./Src/Chapter04/PBR/PBR.cpp \
 	./Src/Chapter04/ToonShading/ToonShading.cpp \
+	./Src/Chapter05/AlphaTest/AlphaTest.cpp \
 	main.cpp \
 	
 run: 
