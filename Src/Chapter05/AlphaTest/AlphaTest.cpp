@@ -18,6 +18,7 @@ void AlphaTest::Init()
     cement.LoadTexture("./Data/Textures/cement.png");
     
     teapot.LoadModel("./Data/teapot.obj");
+    teapot.GenerateTangents();
 
     shader.RegisterUniform("ModelMatrix");
     shader.RegisterUniform("ViewMatrix");

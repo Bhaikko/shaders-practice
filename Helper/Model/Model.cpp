@@ -87,7 +87,6 @@ void Model::LoadModelDataIntoBuffers()
     GLuint VBO;
     GLfloat* data = nullptr;
 
-
     glGenVertexArrays(1, &VAO); 
     glBindVertexArray(VAO); 
 
@@ -149,23 +148,94 @@ void Model::LoadModelDataIntoBuffers()
 void Model::RenderModel()
 {
     glBindVertexArray(VAO);    
-        // glEnable(GL_CULL_FACE);
-        // glCullFace(GL_BACK);
-            glDrawArrays(GL_TRIANGLES, 0, faces.size());   
-        // glDisable(GL_CULL_FACE);
+        glDrawArrays(GL_TRIANGLES, 0, faces.size());   
     glBindVertexArray(0);
     
 }
 
 void Model::GenerateTangents()
 {
-    // std::vector<glm::vec3> tan1Accum(verticesCount); 
-    // std::vector<glm::vec3> tan2Accum(verticesCount); 
-    // tangents.resize(verticesCount);
+    std::vector<glm::vec3> tan1Accum(vertices.size()); 
+    std::vector<glm::vec3> tan2Accum(vertices.size()); 
+    tangents.resize(vertices.size());
 
-    // for (unsigned int i = 0; i < facesCount; i++) {
+    for (unsigned int i = 0; i < faces.size(); i+= 3) {
+        const glm::vec3& p1 = vertices[faces[i].vertexIndex];
+        const glm::vec3& p2 = vertices[faces[i + 1].vertexIndex];
+        const glm::vec3& p3 = vertices[faces[i + 2].vertexIndex];
 
-    // }
+        const glm::vec2& tc1 = uvs[faces[i].textureCoordIndex];
+        const glm::vec2& tc2 = uvs[faces[i + 1].textureCoordIndex];
+        const glm::vec2& tc3 = uvs[faces[i + 2].textureCoordIndex];
+
+        glm::vec3 q1 = p2 - p1;
+        glm::vec3 q2 = p3 - p1;
+
+        float s1 = tc2.x - tc1.x, s2 = tc3.x - tc1.x;
+        float t1 = tc2.y - tc1.y, t2 = tc3.y - tc1.y;
+        float r = 1.0f / (s1 * t2 - s2 * t1);
+
+        glm::vec3 tan1( 
+            (t2*q1.x - t1*q2.x) * r,
+            (t2*q1.y - t1*q2.y) * r,
+            (t2*q1.z - t1*q2.z) * r
+        );
+
+        glm::vec3 tan2( 
+            (s1*q2.x - s2*q1.x) * r,
+            (s1*q2.y - s2*q1.y) * r,
+            (s1*q2.z - s2*q1.z) * r
+        );
+
+        tan1Accum[faces[i].vertexIndex] += tan1;
+        tan1Accum[faces[i + 1].vertexIndex] += tan1;
+        tan1Accum[faces[i + 2].vertexIndex] += tan1;
+
+        tan2Accum[faces[i].vertexIndex] += tan2;
+        tan2Accum[faces[i + 1].vertexIndex] += tan2;
+        tan2Accum[faces[i + 2].vertexIndex] += tan2;
+    }
+
+    for (GLuint i = 0; i < vertices.size(); i++) {
+        const glm::vec3& n = normals[i];
+        glm::vec3& t1 = tan1Accum[i];
+        glm::vec3& t2 = tan2Accum[i];
+
+        // Gram-Schmidt Orthogonalize
+        tangents[i] = glm::vec4(glm::normalize(t1 - (glm::dot(n, t1) * n)), 0.0f);
+
+        // Store handedness in w
+        tangents[i].w = (glm::dot(glm::cross(n, t1), t2) < 0.0f ? -1.0f : 1.0f);
+    }
+
+
+    // Allocating Tangents
+    GLuint VBO;
+    GLfloat* data = nullptr;
+
+    glBindVertexArray(VAO); 
+        // Binding Normal Data
+        data = new GLfloat[faces.size() * 4];
+        unsigned int index = 0;
+
+        for (unsigned long long i = 0; i < faces.size(); i++) {
+            data[index++] = tangents[faces[i].normalIndex].x;
+            data[index++] = tangents[faces[i].normalIndex].y;
+            data[index++] = tangents[faces[i].normalIndex].z;
+            data[index++] = tangents[faces[i].normalIndex].w;
+        }
+
+        glGenBuffers(1, &VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, faces.size() * sizeof(data[0]) * 4, data, GL_STATIC_DRAW);
+            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(data[0]) * 4, 0);
+            glEnableVertexAttribArray(4);
+        
+        delete data;
+        index = 0;
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);    
 }
 
 Model::~Model()
