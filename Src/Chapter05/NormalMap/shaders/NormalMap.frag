@@ -4,8 +4,9 @@ in vec3 LightDir;
 in vec2 TexCoord;
 in vec3 ViewDir;
 
-uniform sampler2D ColorTex;
-uniform sampler2D NormalMapTex;
+// This binding refers to texture unit bind using glActiveTexture(GL_TEXTURE0)
+layout (binding = 0) uniform sampler2D ColorTex;
+layout (binding = 1) uniform sampler2D NormalMapTex;
 
 uniform struct LightInfo {
     vec4 Position;

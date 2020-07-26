@@ -31,18 +31,12 @@ void NormalMap::Init()
     shader.RegisterUniform("Material.Ks");
     shader.RegisterUniform("Material.Shininess");
 
-    shader.RegisterUniform("ColorTex");
-    shader.RegisterUniform("NormalMapTex");
-
     shader.UseShader();
     glUniform3f(shader.GetUniformLocation("Light.L"), 1.0f, 1.0f, 1.0f);
     glUniform3f(shader.GetUniformLocation("Light.La"), 0.2f, 0.2f, 0.2f);
 
     glUniform3f(shader.GetUniformLocation("Material.Ks"), 0.2f, 0.2f, 0.2f);
     glUniform1f(shader.GetUniformLocation("Material.Shininess"), 1.0f);
-
-    glUniform1i(shader.GetUniformLocation("ColorTex"), 0);
-    glUniform1i(shader.GetUniformLocation("NormalMapTex"), 1);
 
 }
 
