@@ -18,6 +18,7 @@
 #include "./Helper/commonValues.cpp"
 
 #include "./Helper/CoordinateAxes/CoordinateAxes.h"
+#include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
 // Chapter 2
@@ -44,6 +45,7 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 
 CoordinateAxes coordinateAxes;
+Skybox skybox;
 
 // UniformBlock uniformBlock;
 // SceneDiscard sceneDiscard;
@@ -74,8 +76,10 @@ int main(int argc, const char* argv[])
     projectionMatrix = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / (GLfloat)mainWindow.getBufferHeight(), 0.1f, 100.0f);
 
     glm::mat4 modelMatrix(1.0f);
+    glm::mat4 viewMatrix(1.0f);
 
     coordinateAxes.InitialiseCoordinateAxes();
+    skybox.Init();
 
     //  ################
     // uniformBlock.Init();
@@ -106,7 +110,11 @@ int main(int argc, const char* argv[])
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, camera.CalculateViewMatrix());
+        viewMatrix = camera.CalculateViewMatrix();
+
+
+        skybox.Render(viewMatrix, projectionMatrix);
+        coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
         // uniformBlock.Render();
         // sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
@@ -120,7 +128,7 @@ int main(int argc, const char* argv[])
         // alphaTest.Render(camera.CalculateViewMatrix(), projectionMatrix);
         // alphaTest.Update(deltaTime);
 
-        normalMap.Render(camera.CalculateViewMatrix(), projectionMatrix);
+        normalMap.Render(viewMatrix, projectionMatrix);
         normalMap.Update(deltaTime);
 
 

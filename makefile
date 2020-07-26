@@ -12,6 +12,7 @@ SRCS_CPP= \
 	./Helper/Window/Window.cpp \
 	./Helper/Texture/Texture.cpp \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
+	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
 	./Src/Chapter02/UniformBlock/UniformBlock.cpp \
 	./Src/Chapter03/SceneDiscard/SceneDiscard.cpp \

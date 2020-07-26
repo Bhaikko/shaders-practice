@@ -15,7 +15,9 @@ public:
 	~Texture();
 
 	void LoadTexture(std::string fileLocation);
+	void LoadCubMap(std::string files[]);
 	void UseTexture(GLenum textureUnit);
+	void UseCubeMap(GLenum textureUnit);
 	void ClearTexture();
 
 private:
