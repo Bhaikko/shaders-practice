@@ -20,6 +20,7 @@ SRCS_CPP= \
 	./Src/Chapter04/PBR/PBR.cpp \
 	./Src/Chapter04/ToonShading/ToonShading.cpp \
 	./Src/Chapter05/AlphaTest/AlphaTest.cpp \
+	./Src/Chapter05/NormalMap/NormalMap.cpp \
 	main.cpp \
 	
 run: 

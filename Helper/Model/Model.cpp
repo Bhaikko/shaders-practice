@@ -228,8 +228,8 @@ void Model::GenerateTangents()
         glGenBuffers(1, &VBO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, faces.size() * sizeof(data[0]) * 4, data, GL_STATIC_DRAW);
-            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(data[0]) * 4, 0);
-            glEnableVertexAttribArray(4);
+            glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(data[0]) * 4, 0);
+            glEnableVertexAttribArray(3);
         
         delete data;
         index = 0;

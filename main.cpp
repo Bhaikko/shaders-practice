@@ -33,7 +33,8 @@
 // #include "./Src/Chapter04/ToonShading/ToonShading.h"
 
 // Chapter 5
-#include "./Src/Chapter05/AlphaTest/AlphaTest.h"
+// #include "./Src/Chapter05/AlphaTest/AlphaTest.h"
+#include "./Src/Chapter05/NormalMap/NormalMap.h"
 
 
 Window mainWindow;
@@ -52,8 +53,8 @@ CoordinateAxes coordinateAxes;
 // PBR pbr;
 // ToonShading toonShading;
 
-AlphaTest alphaTest;
-
+// AlphaTest alphaTest;
+NormalMap normalMap;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -84,7 +85,8 @@ int main(int argc, const char* argv[])
     // fog.Init();
     // pbr.Init();
     // toonShading.Init();
-    alphaTest.Init();
+    // alphaTest.Init();
+    normalMap.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -115,8 +117,11 @@ int main(int argc, const char* argv[])
         // toonShading.Render(camera.CalculateViewMatrix(), projectionMatrix);
         // toonShading.Update(deltaTime);
 
-        alphaTest.Render(camera.CalculateViewMatrix(), projectionMatrix);
-        alphaTest.Update(deltaTime);
+        // alphaTest.Render(camera.CalculateViewMatrix(), projectionMatrix);
+        // alphaTest.Update(deltaTime);
+
+        normalMap.Render(camera.CalculateViewMatrix(), projectionMatrix);
+        normalMap.Update(deltaTime);
 
 
         mainWindow.SwapBuffers();
