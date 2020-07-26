@@ -41,5 +41,12 @@ void main()
     ViewDir = toObjectLocal * normalize(-pos);
     TexCoord = VertexTexCoord;
 
+    // Texcoords fix
+    mat2 rotate = mat2(
+        vec2(0, 1),
+        vec2(-1, 0)
+    );
+    TexCoord = rotate * TexCoord;
+
     gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(VertexPosition, 1.0);
 }
