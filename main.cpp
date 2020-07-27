@@ -35,7 +35,8 @@
 
 // Chapter 5
 // #include "./Src/Chapter05/AlphaTest/AlphaTest.h"
-#include "./Src/Chapter05/NormalMap/NormalMap.h"
+// #include "./Src/Chapter05/NormalMap/NormalMap.h"
+#include "./Src/Chapter05/ReflectionCubeMap/ReflectionCubeMap.h"
 
 
 Window mainWindow;
@@ -56,7 +57,8 @@ Skybox skybox;
 // ToonShading toonShading;
 
 // AlphaTest alphaTest;
-NormalMap normalMap;
+// NormalMap normalMap;
+ReflectionCubeMap reflectionCubeMap;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -90,7 +92,8 @@ int main(int argc, const char* argv[])
     // pbr.Init();
     // toonShading.Init();
     // alphaTest.Init();
-    normalMap.Init();
+    // normalMap.Init();
+    reflectionCubeMap.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -128,8 +131,11 @@ int main(int argc, const char* argv[])
         // alphaTest.Render(camera.CalculateViewMatrix(), projectionMatrix);
         // alphaTest.Update(deltaTime);
 
-        normalMap.Render(viewMatrix, projectionMatrix);
-        normalMap.Update(deltaTime);
+        // normalMap.Render(viewMatrix, projectionMatrix);
+        // normalMap.Update(deltaTime);
+
+        reflectionCubeMap.Render(viewMatrix, projectionMatrix, camera.GetCameraPosition());
+        reflectionCubeMap.Update(deltaTime);
 
 
         mainWindow.SwapBuffers();

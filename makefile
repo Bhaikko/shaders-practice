@@ -22,6 +22,7 @@ SRCS_CPP= \
 	./Src/Chapter04/ToonShading/ToonShading.cpp \
 	./Src/Chapter05/AlphaTest/AlphaTest.cpp \
 	./Src/Chapter05/NormalMap/NormalMap.cpp \
+	./Src/Chapter05/ReflectionCubeMap/ReflectionCubeMap.cpp \
 	main.cpp \
 	
 run: 
