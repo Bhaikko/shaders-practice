@@ -12,6 +12,7 @@ uniform mat3 NormalMatrix;
 uniform vec3 WorldCameraPosition;
 
 out vec3 ReflectDir;
+out vec3 RefractDir;
 // out vec3 
 
 void main()
@@ -20,8 +21,8 @@ void main()
     vec3 worldNorm = vec3(NormalMatrix * VertexNormal);
     vec3 worldView = normalize(worldPos - WorldCameraPosition);
 
-    // ReflectDir = refract(-worldView, worldNorm, 0.5);
-    ReflectDir = reflect(worldView, worldNorm);
+    RefractDir = refract(-worldView, worldNorm, 1.517);
+    ReflectDir = reflect(-worldView, worldNorm);
 
     gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(VertexPosition, 1.0);
 }

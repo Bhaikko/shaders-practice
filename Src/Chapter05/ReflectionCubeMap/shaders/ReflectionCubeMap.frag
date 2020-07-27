@@ -1,25 +1,25 @@
 #version 450
 
 in vec3 ReflectDir;
+in vec3 RefractDir;
 
 layout (binding = 0) uniform samplerCube CubeMapTex;
 
-uniform float ReflectFactor;
+uniform float ReflectionFactor;
 uniform vec4 MaterialColor;
 
 layout (location = 0) out vec4 FragColor;
 
 void main()
 {
-    vec3 cubeMapColor = texture(CubeMapTex, ReflectDir).rgb;
+    vec3 reflectiveColor = texture(CubeMapTex, ReflectDir).rgb;
+    vec3 refractiveColor = texture(CubeMapTex, RefractDir).rgb;
 
+    vec3 color = mix(refractiveColor, reflectiveColor, ReflectionFactor);
+        
     // Gamma Correction
-    cubeMapColor = pow(cubeMapColor, vec3(1.0 / 2.2));
+    color = pow(color, vec3(1.0 / 2.2));
 
-    // FragColor = vec4(
-    //     mix(MaterialColor.rgb, cubeMapColor, ReflectFactor),
-    //     1.0
-    // );
+    FragColor = vec4(color, 1.0);
 
-    FragColor = vec4(cubeMapColor, 1.0);
 }

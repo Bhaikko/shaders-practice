@@ -9,7 +9,9 @@ class ReflectionCubeMap
         Texture reflectionMap;
         Model teapot;
 
+        float time;
         float angle, rotSpeed;
+        float reflectionFactor;
 
     public:
         ReflectionCubeMap();

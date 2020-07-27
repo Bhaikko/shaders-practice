@@ -2,8 +2,11 @@
 
 ReflectionCubeMap::ReflectionCubeMap()
 {
-    rotSpeed = 1.0f;
+    rotSpeed = 0.5f;
     angle = 0.0f;
+
+    reflectionFactor = 0.0f;
+    time = 0.0f;
 }
 
 void ReflectionCubeMap::Init()
@@ -31,11 +34,10 @@ void ReflectionCubeMap::Init()
 
     shader.RegisterUniform("WorldCameraPosition");
 
-    shader.RegisterUniform("ReflectFactor");
+    shader.RegisterUniform("ReflectionFactor");
     shader.RegisterUniform("MaterialColor");
 
     shader.UseShader();
-    glUniform1f(shader.GetUniformLocation("ReflectFactor"), 0.5f);
     glUniform4f(shader.GetUniformLocation("MaterialColor"), 0.5f, 0.5f, 0.5f, 1.0f);
 
 
@@ -47,6 +49,11 @@ void ReflectionCubeMap::Update(float deltaTime)
     if (angle > glm::two_pi<float>()) {
         angle -= glm::two_pi<float>();
     }
+
+    time += deltaTime;
+
+    reflectionFactor = glm::sin(time);
+    reflectionFactor = 0.5 * reflectionFactor + 0.5;
 }
 
 void ReflectionCubeMap::Render(glm::mat4 view, glm::mat4 projection, glm::vec3 cameraPosition)
@@ -58,6 +65,8 @@ void ReflectionCubeMap::Render(glm::mat4 view, glm::mat4 projection, glm::vec3 c
     glm::mat4 model(1.0f);
     // model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
     model = glm::rotate(model, angle, glm::vec3(0.0f, 0.0f, 1.0f));
+
+    glUniform1f(shader.GetUniformLocation("ReflectionFactor"), reflectionFactor);
 
     glUniformMatrix4fv(shader.GetUniformLocation("ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(shader.GetUniformLocation("ViewMatrix"), 1, GL_FALSE, glm::value_ptr(view));
