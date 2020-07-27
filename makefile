@@ -2,8 +2,7 @@ CXX = g++
 RM = rm -f
 CPPFLAGS = -std=c++11 -Wall -g
 
-GlewLibs=-lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl
-GlfwLibs=-lGLEW 
+Libs=-lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lGLEW
 
 SRCS_CPP= \
 	./Helper/commonValues.cpp \
@@ -14,16 +13,8 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
-	./Src/Chapter02/UniformBlock/UniformBlock.cpp \
-	./Src/Chapter03/SceneDiscard/SceneDiscard.cpp \
-	./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.cpp \
-	./Src/Chapter03/Fog/Fog.cpp \
-	./Src/Chapter04/PBR/PBR.cpp \
-	./Src/Chapter04/ToonShading/ToonShading.cpp \
-	./Src/Chapter05/AlphaTest/AlphaTest.cpp \
-	./Src/Chapter05/NormalMap/NormalMap.cpp \
-	./Src/Chapter05/ReflectionCubeMap/ReflectionCubeMap.cpp \
+	./Src/Chapter05/TextureProjection/TextureProjection.cpp \
 	main.cpp \
 	
 run: 
-	$(CXX) $(SRCS_CPP) -o application $(GlewLibs) $(GlfwLibs) $(CPPFLAGS)
+	$(CXX) $(SRCS_CPP) -o application $(Libs) $(GlfwLibs) $(CPPFLAGS)

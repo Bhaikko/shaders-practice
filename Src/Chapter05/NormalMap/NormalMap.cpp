@@ -63,7 +63,6 @@ void NormalMap::Render(glm::mat4 view, glm::mat4 projection)
 
     glUniform4f(shader.GetUniformLocation("Light.Position"), lightPos.x, lightPos.y, lightPos.z, lightPos.w);
 
-
     glUniformMatrix4fv(shader.GetUniformLocation("ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(shader.GetUniformLocation("ViewMatrix"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(shader.GetUniformLocation("ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
