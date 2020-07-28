@@ -37,7 +37,8 @@
 // #include "./Src/Chapter05/AlphaTest/AlphaTest.h"
 // #include "./Src/Chapter05/NormalMap/NormalMap.h"
 // #include "./Src/Chapter05/ReflectionCubeMap/ReflectionCubeMap.h"
-#include "./Src/Chapter05/TextureProjection/TextureProjection.h"
+// #include "./Src/Chapter05/TextureProjection/TextureProjection.h"
+#include "./Src/Chapter05/RenderToTexture/RenderToTexture.h"
 
 
 Window mainWindow;
@@ -60,7 +61,8 @@ Skybox skybox;
 // AlphaTest alphaTest;
 // NormalMap normalMap;
 // ReflectionCubeMap reflectionCubeMap;
-TextureProjection textureProjection;
+// TextureProjection textureProjection;
+RenderToTexture renderToTexture;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -96,7 +98,8 @@ int main(int argc, const char* argv[])
     // alphaTest.Init();
     // normalMap.Init();
     // reflectionCubeMap.Init();
-    textureProjection.Init();
+    // textureProjection.Init();
+    renderToTexture.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -119,7 +122,7 @@ int main(int argc, const char* argv[])
         viewMatrix = camera.CalculateViewMatrix();
 
 
-        // skybox.Render(viewMatrix, projectionMatrix);
+        skybox.Render(viewMatrix, projectionMatrix);
         coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
         // uniformBlock.Render();
@@ -140,7 +143,10 @@ int main(int argc, const char* argv[])
         // reflectionCubeMap.Render(viewMatrix, projectionMatrix, camera.GetCameraPosition());
         // reflectionCubeMap.Update(deltaTime);
 
-        textureProjection.Render(viewMatrix, projectionMatrix);
+        // textureProjection.Render(viewMatrix, projectionMatrix);
+
+        renderToTexture.Render(viewMatrix, projectionMatrix);
+        renderToTexture.Update(deltaTime);
 
 
         mainWindow.SwapBuffers();
