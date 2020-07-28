@@ -38,7 +38,8 @@
 // #include "./Src/Chapter05/NormalMap/NormalMap.h"
 // #include "./Src/Chapter05/ReflectionCubeMap/ReflectionCubeMap.h"
 // #include "./Src/Chapter05/TextureProjection/TextureProjection.h"
-#include "./Src/Chapter05/RenderToTexture/RenderToTexture.h"
+// #include "./Src/Chapter05/RenderToTexture/RenderToTexture.h"
+#include "./Src/Chapter05/SamplerObject/SamplerObject.h"
 
 
 Window mainWindow;
@@ -62,7 +63,8 @@ Skybox skybox;
 // NormalMap normalMap;
 // ReflectionCubeMap reflectionCubeMap;
 // TextureProjection textureProjection;
-RenderToTexture renderToTexture;
+// RenderToTexture renderToTexture;
+SamplerObject samplerObject;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -99,7 +101,8 @@ int main(int argc, const char* argv[])
     // normalMap.Init();
     // reflectionCubeMap.Init();
     // textureProjection.Init();
-    renderToTexture.Init();
+    // renderToTexture.Init();
+    samplerObject.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -145,8 +148,10 @@ int main(int argc, const char* argv[])
 
         // textureProjection.Render(viewMatrix, projectionMatrix);
 
-        renderToTexture.Render(viewMatrix, projectionMatrix);
-        renderToTexture.Update(deltaTime);
+        // renderToTexture.Render(viewMatrix, projectionMatrix);
+        // renderToTexture.Update(deltaTime);
+
+        samplerObject.Render(viewMatrix, projectionMatrix);
 
 
         mainWindow.SwapBuffers();

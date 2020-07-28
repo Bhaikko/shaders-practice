@@ -13,7 +13,7 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
-	./Src/Chapter05/RenderToTexture/RenderToTexture.cpp \
+	./Src/Chapter05/SamplerObject/SamplerObject.cpp \
 	main.cpp \
 	
 run: 
