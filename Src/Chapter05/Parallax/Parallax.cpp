@@ -14,6 +14,7 @@ void Parallax::Init()
     );
 
     plane.LoadModel("./Data/plane.obj");
+    plane.GenerateTangents();
     colorMap.LoadTexture("./Data/Textures/mybrick/mybrick-color.png");
     normalMap.LoadTexture("./Data/Textures/mybrick/mybrick-normal.png");
     heightMap.LoadTexture("./Data/Textures/mybrick/mybrick-height.png");
