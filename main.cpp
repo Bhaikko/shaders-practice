@@ -39,7 +39,8 @@
 // #include "./Src/Chapter05/ReflectionCubeMap/ReflectionCubeMap.h"
 // #include "./Src/Chapter05/TextureProjection/TextureProjection.h"
 // #include "./Src/Chapter05/RenderToTexture/RenderToTexture.h"
-#include "./Src/Chapter05/SamplerObject/SamplerObject.h"
+// #include "./Src/Chapter05/SamplerObject/SamplerObject.h"
+#include "./Src/Chapter05/Parallax/Parallax.h"
 
 
 Window mainWindow;
@@ -64,7 +65,8 @@ Skybox skybox;
 // ReflectionCubeMap reflectionCubeMap;
 // TextureProjection textureProjection;
 // RenderToTexture renderToTexture;
-SamplerObject samplerObject;
+// SamplerObject samplerObject;
+Parallax parallax;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -102,7 +104,8 @@ int main(int argc, const char* argv[])
     // reflectionCubeMap.Init();
     // textureProjection.Init();
     // renderToTexture.Init();
-    samplerObject.Init();
+    // samplerObject.Init();
+    parallax.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -151,7 +154,9 @@ int main(int argc, const char* argv[])
         // renderToTexture.Render(viewMatrix, projectionMatrix);
         // renderToTexture.Update(deltaTime);
 
-        samplerObject.Render(viewMatrix, projectionMatrix);
+        // samplerObject.Render(viewMatrix, projectionMatrix);
+
+        parallax.Render(viewMatrix, projectionMatrix);
 
 
         mainWindow.SwapBuffers();
