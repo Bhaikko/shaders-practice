@@ -40,10 +40,13 @@
 // #include "./Src/Chapter05/TextureProjection/TextureProjection.h"
 // #include "./Src/Chapter05/RenderToTexture/RenderToTexture.h"
 // #include "./Src/Chapter05/SamplerObject/SamplerObject.h"
-#include "./Src/Chapter05/Parallax/Parallax.h"
+// #include "./Src/Chapter05/Parallax/Parallax.h"
 
+#include "./Src/Chapter06/EdgeDetection/EdgeDetection.h"
 
-Window mainWindow;
+GLint width = 1366, height = 768;
+
+Window mainWindow(width, height);
 Camera camera;
 
 GLfloat deltaTime = 0.0f;
@@ -66,7 +69,8 @@ Skybox skybox;
 // TextureProjection textureProjection;
 // RenderToTexture renderToTexture;
 // SamplerObject samplerObject;
-Parallax parallax;
+// Parallax parallax;
+EdgeDetection edgeDetection(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -105,7 +109,9 @@ int main(int argc, const char* argv[])
     // textureProjection.Init();
     // renderToTexture.Init();
     // samplerObject.Init();
-    parallax.Init();
+    // parallax.Init();
+
+    edgeDetection.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -156,8 +162,9 @@ int main(int argc, const char* argv[])
 
         // samplerObject.Render(viewMatrix, projectionMatrix);
 
-        parallax.Render(viewMatrix, projectionMatrix);
+        // parallax.Render(viewMatrix, projectionMatrix);
 
+        edgeDetection.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }

@@ -33,12 +33,12 @@ vec2 FindOffset(vec3 v, out float height)
     vec2 tc = TexCoord.xy;
     height = texture(HeightMapTex, tc).r;
 
-    // while (height < ht) {
-    //     ht -= htStep;
-    //     tc -= deltaT;
+    while (height < ht) {
+        ht -= htStep;
+        tc -= deltaT;
 
-    //     height = texture(HeightMapTex, tc).r;
-    // }
+        height = texture(HeightMapTex, tc).r;
+    }
 
     return tc;
 }
