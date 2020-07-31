@@ -21,28 +21,8 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-// Chapter 2
-// #include "./Src/Chapter02/UniformBlock/UniformBlock.h"
 
-// Chapter 3
-// #include "./Src/Chapter03/SceneDiscard/SceneDiscard.h"
-// #include "./Src/Chapter03/sceneSubRoutine/sceneSubRoutine.h"
-// #include "./Src/Chapter03/Fog/Fog.h"
-
-// Chapter 4
-// #include "./Src/Chapter04/PBR/PBR.h"
-// #include "./Src/Chapter04/ToonShading/ToonShading.h"
-
-// Chapter 5
-// #include "./Src/Chapter05/AlphaTest/AlphaTest.h"
-// #include "./Src/Chapter05/NormalMap/NormalMap.h"
-// #include "./Src/Chapter05/ReflectionCubeMap/ReflectionCubeMap.h"
-// #include "./Src/Chapter05/TextureProjection/TextureProjection.h"
-// #include "./Src/Chapter05/RenderToTexture/RenderToTexture.h"
-// #include "./Src/Chapter05/SamplerObject/SamplerObject.h"
-// #include "./Src/Chapter05/Parallax/Parallax.h"
-
-#include "./Src/Chapter06/EdgeDetection/EdgeDetection.h"
+#include "./Src/Chapter06/Blur/Blur.h"
 
 GLint width = 1366, height = 768;
 
@@ -55,22 +35,7 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-// UniformBlock uniformBlock;
-// SceneDiscard sceneDiscard;
-// SceneSubRoutine sceneSubRoutine;
-// Fog fog;
-
-// PBR pbr;
-// ToonShading toonShading;
-
-// AlphaTest alphaTest;
-// NormalMap normalMap;
-// ReflectionCubeMap reflectionCubeMap;
-// TextureProjection textureProjection;
-// RenderToTexture renderToTexture;
-// SamplerObject samplerObject;
-// Parallax parallax;
-EdgeDetection edgeDetection(width, height);
+Blur blur(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -96,25 +61,9 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    // uniformBlock.Init();
-    
-    // sceneDiscard.Init();
-    // sceneSubRoutine.Init();
-    // fog.Init();
-    // pbr.Init();
-    // toonShading.Init();
-    // alphaTest.Init();
-    // normalMap.Init();
-    // reflectionCubeMap.Init();
-    // textureProjection.Init();
-    // renderToTexture.Init();
-    // samplerObject.Init();
-    // parallax.Init();
-
-    edgeDetection.Init();
+    blur.Init();
     //  ################
 
-    glEnable(GL_DEPTH_TEST);
     
     std::cout << "[+] Scene Init Done" << std::endl;
 
@@ -130,41 +79,14 @@ int main(int argc, const char* argv[])
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
+
+        // skybox.Render(viewMatrix, projectionMatrix);
+        // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
         viewMatrix = camera.CalculateViewMatrix();
 
-
-        skybox.Render(viewMatrix, projectionMatrix);
-        coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
-
-        // uniformBlock.Render();
-        // sceneDiscard.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
-        // sceneSubRoutine.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
-        // fog.Render(modelMatrix, camera.CalculateViewMatrix(), projectionMatrix);
-        // pbr.Render(camera.CalculateViewMatrix(), projectionMatrix);
-        // pbr.Update(deltaTime);
-        // toonShading.Render(camera.CalculateViewMatrix(), projectionMatrix);
-        // toonShading.Update(deltaTime);
-
-        // alphaTest.Render(camera.CalculateViewMatrix(), projectionMatrix);
-        // alphaTest.Update(deltaTime);
-
-        // normalMap.Render(viewMatrix, projectionMatrix);
-        // normalMap.Update(deltaTime);
-
-        // reflectionCubeMap.Render(viewMatrix, projectionMatrix, camera.GetCameraPosition());
-        // reflectionCubeMap.Update(deltaTime);
-
-        // textureProjection.Render(viewMatrix, projectionMatrix);
-
-        // renderToTexture.Render(viewMatrix, projectionMatrix);
-        // renderToTexture.Update(deltaTime);
-
-        // samplerObject.Render(viewMatrix, projectionMatrix);
-
-        // parallax.Render(viewMatrix, projectionMatrix);
-
-        edgeDetection.Render(viewMatrix, projectionMatrix);
+        blur.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }

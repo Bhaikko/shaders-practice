@@ -13,7 +13,7 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
-	./Src/Chapter06/EdgeDetection/EdgeDetection.cpp \
+	./Src/Chapter06/Blur/Blur.cpp \
 	main.cpp \
 	
 run: 
