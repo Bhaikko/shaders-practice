@@ -152,5 +152,59 @@ void Shader::RegisterUniform(std::string uniformName)
 
 GLuint Shader::GetUniformLocation(std::string uniformName)
 {
+	std::unordered_map<std::string, GLuint>::iterator pos = uniforms.find(uniformName);
+
+	if (pos == uniforms.end()) {
+		RegisterUniform(uniformName);
+	}
+
 	return uniforms[uniformName];
+}
+
+void Shader::SetUniform(std::string uniformName, float value)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniform1f(uniformLocation, value);
+}
+
+void Shader::SetUniform(std::string uniformName, int value)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniform1i(uniformLocation, value);
+}
+
+void Shader::SetUniform(std::string uniformName, bool value)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniform1i(uniformLocation, value);
+}
+
+void Shader::SetUniform(std::string uniformName, const glm::vec2& v)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniform2f(uniformLocation, v.x, v.y);
+}
+
+void Shader::SetUniform(std::string uniformName, const glm::vec3& v)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniform3f(uniformLocation, v.x, v.y, v.z);
+}
+
+void Shader::SetUniform(std::string uniformName, const glm::vec4& v)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniform4f(uniformLocation, v.x, v.y, v.z, v.w);
+}
+
+void Shader::SetUniform(std::string uniformName, const glm::mat3& v)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(v));
+}
+
+void Shader::SetUniform(std::string uniformName, const glm::mat4& v)
+{
+	GLuint uniformLocation = GetUniformLocation(uniformName.c_str());
+	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(v));
 }

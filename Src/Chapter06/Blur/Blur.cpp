@@ -20,39 +20,16 @@ void Blur::Init()
 
     SetupFBO();
 
-    shader.RegisterUniform("ModelMatrix");
-    shader.RegisterUniform("ViewMatrix");
-    shader.RegisterUniform("ProjectionMatrix");
-    shader.RegisterUniform("NormalMatrix");
-
-    shader.RegisterUniform("Light.Position");
-    shader.RegisterUniform("Light.L");
-    shader.RegisterUniform("Light.La");
-
-    shader.RegisterUniform("Material.Ka");
-    shader.RegisterUniform("Material.Kd");
-    shader.RegisterUniform("Material.Ks");
-    shader.RegisterUniform("Material.Shininess");
-
-    shader.RegisterUniform("Weights[0]");
-    shader.RegisterUniform("Weights[1]");
-    shader.RegisterUniform("Weights[2]");
-    shader.RegisterUniform("Weights[3]");
-    shader.RegisterUniform("Weights[4]");
-
-    shader.RegisterUniform("Pass");
-    shader.RegisterUniform("RenderTexture");
-
     shader.UseShader();
 
-    glUniform4f(shader.GetUniformLocation("Light.Position"), 0.0f, 0.0f, 0.0f, 1.0f);
-    glUniform3f(shader.GetUniformLocation("Light.L"), 1.0f, 1.0f, 1.0f);
-    glUniform3f(shader.GetUniformLocation("Light.La"), 0.2f, 0.2f, 0.2f);
+    shader.SetUniform("Light.Position", glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+    shader.SetUniform("Light.L", glm::vec3(1.0f));
+    shader.SetUniform("Light.La", glm::vec3(0.2f));
 
-    glUniform3f(shader.GetUniformLocation("Material.Kd"), 0.9f, 0.9f, 0.9f);
-    glUniform3f(shader.GetUniformLocation("Material.Ks"), 0.95f, 0.95f, 0.95f);
-    glUniform3f(shader.GetUniformLocation("Material.Ka"), 0.1f, 0.1f, 0.1f);
-    glUniform1f(shader.GetUniformLocation("Material.Shininess"), 100.0f);
+    shader.SetUniform("Material.Kd", glm::vec3(0.2f, 0.2f, 0.2f));
+    shader.SetUniform("Material.Ks", glm::vec3(0.95f, 0.95f, 0.95f));
+    shader.SetUniform("Material.Ka", glm::vec3(0.1f, 0.1f, 0.1f));
+    shader.SetUniform("Material.Shininess", 100.0f);
     
 
     // Weights Initilisation
@@ -69,7 +46,8 @@ void Blur::Init()
     for (unsigned int i = 0; i < 5; i++) {
         std::string uniformName = "Weights[" + std::to_string(i) + "]";
         float value = weights[i] / sum;
-        glUniform1f(shader.GetUniformLocation(uniformName), value);
+        
+        shader.SetUniform(uniformName, value);
     }
 }
 
@@ -137,7 +115,7 @@ void Blur::SetupFBO()
 
 void Blur::Pass1(glm::mat4 view, glm::mat4 projection)
 {
-    glUniform1i(shader.GetUniformLocation("Pass"), 1);
+    shader.SetUniform("Pass", 1);
 
     glBindFramebuffer(GL_FRAMEBUFFER, renderFBO);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -157,7 +135,7 @@ void Blur::Pass1(glm::mat4 view, glm::mat4 projection)
 
 void Blur::Pass2()
 {
-    glUniform1i(shader.GetUniformLocation("Pass"), 2);
+    shader.SetUniform("Pass", 2);
 
     glBindFramebuffer(GL_FRAMEBUFFER, intermediateFBO);
 
@@ -179,7 +157,7 @@ void Blur::Pass2()
 
 void Blur::Pass3()
 {
-    glUniform1i(shader.GetUniformLocation("Pass"), 3);
+    shader.SetUniform("Pass", 3);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -209,8 +187,9 @@ float Blur::Guass(float x, float sigma2)
 
 void Blur::SetupMatrices(glm::mat4& model, glm::mat4& view, glm::mat4& projection)
 {
-    glUniformMatrix4fv(shader.GetUniformLocation("ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(shader.GetUniformLocation("ViewMatrix"), 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(shader.GetUniformLocation("ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
-    glUniformMatrix3fv(shader.GetUniformLocation("NormalMatrix"), 1, GL_FALSE, glm::value_ptr(glm::mat3(glm::inverseTranspose(view * model))));
+    shader.SetUniform("ModelMatrix", model);
+    shader.SetUniform("ViewMatrix", view);
+    shader.SetUniform("ProjectionMatrix", projection);
+    shader.SetUniform("NormalMatrix", glm::mat3(glm::inverseTranspose(view * model)));
+
 }

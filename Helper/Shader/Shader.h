@@ -3,10 +3,15 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <GL/glew.h>
 #include <string.h>
 #include <unordered_map>
 #include <string>
+
+#include <GL/glew.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "./../commonValues.cpp"
 
@@ -44,6 +49,16 @@ public:
 
 private:
 	std::unordered_map<std::string, GLuint> uniforms;
+
+public:
+	void SetUniform(std::string uniformName, float value);
+	void SetUniform(std::string uniformName, int value);
+	void SetUniform(std::string uniformName, bool value);
+	void SetUniform(std::string uniformName, const glm::vec2& v);
+	void SetUniform(std::string uniformName, const glm::vec3& v);
+	void SetUniform(std::string uniformName, const glm::vec4& v);
+	void SetUniform(std::string uniformName, const glm::mat3& v);
+	void SetUniform(std::string uniformName, const glm::mat4& v);
 
 };
 
