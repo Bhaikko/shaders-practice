@@ -22,7 +22,7 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter06/Blur/Blur.h"
+#include "./Src/Chapter06/HdrBloom/HdrBloom.h"
 
 GLint width = 1366, height = 768;
 
@@ -35,7 +35,7 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-Blur blur(width, height);
+HdrBloom hdrBloom(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -61,9 +61,10 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    blur.Init();
+    hdrBloom.Init();
     //  ################
 
+    glEnable(GL_DEPTH_TEST);
     
     std::cout << "[+] Scene Init Done" << std::endl;
 
@@ -79,14 +80,13 @@ int main(int argc, const char* argv[])
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_DEPTH_TEST);
 
         // skybox.Render(viewMatrix, projectionMatrix);
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
         viewMatrix = camera.CalculateViewMatrix();
 
-        blur.Render(viewMatrix, projectionMatrix);
+        hdrBloom.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }

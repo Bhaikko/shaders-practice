@@ -13,7 +13,7 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
-	./Src/Chapter06/Blur/Blur.cpp \
+	./Src/Chapter06/HdrBloom/HdrBloom.cpp \
 	main.cpp \
 	
 run: 
