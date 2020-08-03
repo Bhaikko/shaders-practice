@@ -77,6 +77,7 @@ vec4 Pass1()
     }
 
     return vec4(color, 1);
+
 }
 
 // Bright Pass filter which writes to BlurTex1
@@ -89,6 +90,8 @@ vec4 Pass2()
     } else {
         return vec4(0.0);
     }
+
+    return val;
 }
 
 // First Blur pass along Y axis which reads from BlurTex1 and writes to BlurTex2

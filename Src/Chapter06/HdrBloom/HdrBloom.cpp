@@ -36,7 +36,7 @@ void HdrBloom::Init()
     shader.SetUniform("Lights[2].La", intense);
 
     
-    shader.SetUniform("LumThresh", 1.7f);
+    shader.SetUniform("LumThresh", 1.0f);
 
     float weights[10], sum, sigma2 = 25.0f;
 
@@ -99,37 +99,50 @@ void HdrBloom::SetupFBO()
         glGenTextures(1, &hdrTex);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, hdrTex);
-        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB32F, width, height);
+
+        // The internal format must be sized, hence use GL_RGBA<size>
+        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, width, height);
+
+        //The format (7th argument), together with the type argument, describes the data you pass in as the last argument. 
+        // So the format/type combination defines the memory layout of the data you pass in.
+
+        // internalFormat (2nd argument) defines the format that OpenGL should use to store the data internally.
+        // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, hdrTex, 0);
 
             GLuint depthBuf;
             glGenRenderbuffers(1, &depthBuf);
             glBindRenderbuffer(GL_RENDERBUFFER, depthBuf);
-            glRenderbufferStorage(GL_RENDER, GL_DEPTH_COMPONENT, width, height);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+
+                glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuf);
 
                 GLenum drawBuffer = GL_COLOR_ATTACHMENT0;
                 glDrawBuffers(1, &drawBuffer);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+
+    bloomBufWidth = width / 8;
+    bloomBufHeight = height / 8;
+
     glGenFramebuffers(1, &blurFbo);
     glBindFramebuffer(GL_FRAMEBUFFER, blurFbo);
 
-        bloomBufWidth = width / 8;
-        bloomBufHeight = height / 8;
+
 
         // Creating 2 texture objects to ping pong for bright pass filter
         // and the two pass blur
         glGenTextures(1, &tex1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, tex1);
-        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB32F, bloomBufWidth, bloomBufHeight);
+        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, bloomBufWidth, bloomBufHeight);
 
         glGenTextures(1, &tex2);
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, tex2);
-        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB32F, bloomBufWidth, bloomBufHeight);
+        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, bloomBufWidth, bloomBufHeight);
 
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex1, 0);
 
@@ -180,8 +193,9 @@ void HdrBloom::Pass1(glm::mat4& view, glm::mat4& projection)
     shader.SetUniform("Pass", 1);
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-    // glBindFramebuffer(GL_FRAMEBUFFER, hdrFbo);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, width, height);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, hdrFbo);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 
@@ -209,12 +223,14 @@ void HdrBloom::Pass2()
     model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     SetMatrics(model, view, projection);
 
+
     screenQuad.RenderModel();
 }
 
 void HdrBloom::Pass3()
 {
     shader.SetUniform("Pass", 3);
+
 
     // Rending to tex2
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex2, 0);
@@ -273,29 +289,33 @@ void HdrBloom::DrawScene(glm::mat4& view, glm::mat4& projection)
     SetMatrics(model, view, projection);
     
     // backdrop plane
-    model = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -0.8f));
+    model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(4.0f, 1.0f, 1.0f));
     shader.SetUniform("ModelMatrix", model);
     plane.RenderModel();
 
     // Bottom Plane
-    model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -2.0f, 0.0f));
+    model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(4.0f, 1.0f, 1.0f));
     shader.SetUniform("ModelMatrix", model);
     plane.RenderModel();
 
     // Top plane
-    model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 2.0f, 0.0f));
+    model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::rotate(model, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(4.0f, 1.0f, 1.0f));
     shader.SetUniform("ModelMatrix", model);
     plane.RenderModel();
 
     // Sphere
     shader.SetUniform("Material.Kd", glm::vec3(0.4f, 0.9f, 0.4f));
-    model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, -3.0f, 2.0f));
+    model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0f, 0.0f, 0.0f));
     shader.SetUniform("ModelMatrix", model);
     sphere.RenderModel();
 
     shader.SetUniform("Material.Kd", glm::vec3(0.4f, 0.4f, 0.9f));
-    model = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f,-5.0f,1.5f));
+    model = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f,0.0f, 0.0f));
     shader.SetUniform("ModelMatrix", model);
     teapot.RenderModel();
 
@@ -307,10 +327,10 @@ void HdrBloom::Render(glm::mat4& view, glm::mat4& projection)
     shader.UseShader();
 
     Pass1(view, projection);
-    // ComputeLogAveLumninace();
-    // Pass2();
-    // Pass3();
-    // Pass4();
-    // Pass5();
+    ComputeLogAveLumninace();
+    Pass2();
+    Pass3();
+    Pass4();
+    Pass5();
 }
 
