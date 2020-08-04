@@ -22,7 +22,7 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter06/Deferred/Deferred.h"
+#include "./Src/Chapter06/MSAA/MSAA.h"
 
 GLint width = 1366, height = 768;
 
@@ -35,7 +35,7 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-Deferred deferred(width, height);
+MSAA msaa;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -61,7 +61,7 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    deferred.Init();
+    msaa.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -87,7 +87,7 @@ int main(int argc, const char* argv[])
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
 
-        deferred.Render(viewMatrix, projectionMatrix);
+        msaa.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
