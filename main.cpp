@@ -22,7 +22,7 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter06/HdrBloom/HdrBloom.h"
+#include "./Src/Chapter06/Deferred/Deferred.h"
 
 GLint width = 1366, height = 768;
 
@@ -35,7 +35,7 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-HdrBloom hdrBloom(width, height);
+Deferred deferred(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -61,7 +61,7 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    hdrBloom.Init();
+    deferred.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -78,15 +78,16 @@ int main(int argc, const char* argv[])
         camera.KeyControl(mainWindow.getKeys(), deltaTime);
         camera.MouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
+        viewMatrix = camera.CalculateViewMatrix();
+        
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // skybox.Render(viewMatrix, projectionMatrix);
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
-        viewMatrix = camera.CalculateViewMatrix();
 
-        hdrBloom.Render(viewMatrix, projectionMatrix);
+        deferred.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
