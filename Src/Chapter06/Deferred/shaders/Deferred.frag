@@ -26,7 +26,7 @@ layout (binding = 2) uniform sampler2D ColorTex;
 
 vec3 DiffuseModel(vec3 pos, vec3 norm, vec3 diff)
 {
-     vec3 s = normalize( vec3(Light.Position) - pos);
+    vec3 s = normalize( vec3(Light.Position) - pos);
     float sDotN = max( dot(s,norm), 0.0 );
     return Light.L * diff * sDotN;
 }

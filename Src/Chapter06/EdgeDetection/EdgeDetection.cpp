@@ -1,9 +1,10 @@
 #include "EdgeDetection.h"
 
-EdgeDetection::EdgeDetection(GLint width, GLint height)
+EdgeDetection::EdgeDetection(GLint width, GLint height, bool bApplyEdgeDetection)
 {
     this->width = width;
     this->height = height;
+    this->bApplyEdgeDetection = bApplyEdgeDetection;
 }
 
 void EdgeDetection::Init()
@@ -14,7 +15,7 @@ void EdgeDetection::Init()
     );
 
     torus.LoadModel("./Data/Torus.obj");
-    plane.LoadModel("./Data/plane.obj");
+    plane.LoadModel("./Data/bunny.obj");
     teapot.LoadModel("./Data/teapot.obj");
     screenQuad.LoadModel("./Data/plane.obj");
 
@@ -50,7 +51,10 @@ void EdgeDetection::Render(glm::mat4 view, glm::mat4 projection)
     shader.UseShader();
 
     Pass1(view, projection);
-    Pass2();
+
+    if (bApplyEdgeDetection) {
+        Pass2();
+    }
 }
 
 void EdgeDetection::SetupFBO()
@@ -88,7 +92,11 @@ void EdgeDetection::Pass1(glm::mat4 view, glm::mat4 projection)
 {
     glUniform1i(shader.GetUniformLocation("Pass"), 1);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, fboHandle);
+    if (bApplyEdgeDetection) {
+        glBindFramebuffer(GL_FRAMEBUFFER, fboHandle); 
+    } else {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -102,8 +110,7 @@ void EdgeDetection::Pass1(glm::mat4 view, glm::mat4 projection)
     glUniform1f(shader.GetUniformLocation("Material.Shininess"), 100.0f);
 
     glm::mat4 model(1.0f);
-    model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-    model = glm::translate(model, glm::vec3(5.0f, 0.0f, 0.0f));
+    model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
     glUniformMatrix4fv(shader.GetUniformLocation("ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix3fv(shader.GetUniformLocation("NormalMatrix"), 1, GL_FALSE, glm::value_ptr(glm::mat3(glm::inverseTranspose(view * model))));
 
@@ -115,7 +122,7 @@ void EdgeDetection::Pass1(glm::mat4 view, glm::mat4 projection)
     glUniform1f(shader.GetUniformLocation("Material.Shininess"), 1.0f);
 
     model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+    model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 0.0f));
     glUniformMatrix4fv(shader.GetUniformLocation("ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix3fv(shader.GetUniformLocation("NormalMatrix"), 1, GL_FALSE, glm::value_ptr(glm::mat3(glm::inverseTranspose(view * model))));
 

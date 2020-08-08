@@ -12,8 +12,10 @@ class EdgeDetection
         GLuint fboHandle, renderTex;
         GLuint width, height;
 
+        bool bApplyEdgeDetection;
+
     public:
-        EdgeDetection(GLint width, GLint height);
+        EdgeDetection(GLint width, GLint height, bool bApplyEdgeDetection);
         void Init();
         void Render(glm::mat4 view, glm::mat4 projection);
 

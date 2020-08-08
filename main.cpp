@@ -22,7 +22,7 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter06/OIT/OIT.h"
+#include "./Src/Chapter06/SSAO/SSAO.h"
 
 GLint width = 1366, height = 768;
 
@@ -35,7 +35,8 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-OIT oit(width, height);
+// EdgeDetection edgeDetection(width, height, false);
+SSAO ssao(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -61,7 +62,7 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    oit.Init();
+    ssao.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -87,7 +88,7 @@ int main(int argc, const char* argv[])
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
 
-        oit.Render(viewMatrix, projectionMatrix);
+        ssao.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
