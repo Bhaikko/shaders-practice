@@ -107,21 +107,11 @@ void Pass3()
 {
     ivec2 pix = ivec2(gl_FragCoord.xy);
     float sum = 0.0;
-    // for (int x = -1; x <= 1; x++) {
-    //     for (int y = -1; y <= 1; y++) {
-    //         sum += texelFetchOffset(AoTex, pix, 0, ivec2(x, y)).r;
-    //     }
-    // }
-
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2(-1,  1)).r;
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2(-1,  0)).r;
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2(-1, -1)).r;
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2( 0,  1)).r;
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2( 0, -1)).r;
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2( 1,  1)).r;
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2( 1,  0)).r;
-    sum += texelFetchOffset(AoTex, pix, 0, ivec2( 1, -1)).r;
-
+    for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+            sum += texelFetch(AoTex, pix + ivec2(x, y), 0).r;
+        }
+    }
 
     float ao = sum * 0.11111;
     AoData = ao;
