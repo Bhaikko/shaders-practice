@@ -22,7 +22,7 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter06/SSAO/SSAO.h"
+#include "./Src/Chapter07/PointSprite/PointSprite.h"
 
 GLint width = 1366, height = 768;
 
@@ -36,7 +36,7 @@ CoordinateAxes coordinateAxes;
 Skybox skybox;
 
 // EdgeDetection edgeDetection(width, height, false);
-SSAO ssao(width, height);
+PointSprite pointSprite;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -62,7 +62,7 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    ssao.Init();
+    pointSprite.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -88,7 +88,7 @@ int main(int argc, const char* argv[])
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
 
-        ssao.Render(viewMatrix, projectionMatrix);
+        pointSprite.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }

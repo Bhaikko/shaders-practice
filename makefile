@@ -13,7 +13,7 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
-	./Src/Chapter06/SSAO/SSAO.cpp \
+	./Src/Chapter07/PointSprite/PointSprite.cpp \
 	main.cpp \
 	
 run: 
