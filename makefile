@@ -13,7 +13,7 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
-	./Src/Chapter07/Wireframe/Wireframe.cpp \
+	./Src/Chapter07/BezierCurve/BezierCurve.cpp \
 	main.cpp \
 	
 run: 

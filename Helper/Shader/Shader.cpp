@@ -28,7 +28,7 @@ void Shader::CreateFromFiles(
 	}
 
 	if (tcsShader != "") {
-		tcsShaderCode = readShaderFromFile(tcsShaderCode.c_str());
+		tcsShaderCode = readShaderFromFile(tcsShader.c_str());
 	}
 
 	CompileShaders(

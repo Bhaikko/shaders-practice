@@ -22,7 +22,7 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter07/Wireframe/Wireframe.h"
+#include "./Src/Chapter07/BezierCurve/BezierCurve.h"
 
 GLint width = 1366, height = 768;
 
@@ -36,7 +36,7 @@ CoordinateAxes coordinateAxes;
 Skybox skybox;
 
 // EdgeDetection edgeDetection(width, height, false);
-WireFrame wireframe(width, height);
+BezierCurve curve;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -62,7 +62,7 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    wireframe.Init();
+    curve.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -88,7 +88,7 @@ int main(int argc, const char* argv[])
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
 
-        wireframe.Render(viewMatrix, projectionMatrix);
+        curve.Render();
 
         mainWindow.SwapBuffers();
     }
