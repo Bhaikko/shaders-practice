@@ -22,7 +22,7 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter07/BezierCurve/BezierCurve.h"
+#include "./Src/Chapter07/QuadTess/QuadTess.h"
 
 GLint width = 1366, height = 768;
 
@@ -35,7 +35,7 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-BezierCurve curve;
+QuadTess quadTess(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -61,7 +61,7 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    curve.Init();
+    quadTess.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -87,7 +87,7 @@ int main(int argc, const char* argv[])
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
 
-        curve.Render();
+        quadTess.Render();
 
         mainWindow.SwapBuffers();
     }
