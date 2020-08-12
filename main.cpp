@@ -35,7 +35,6 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-// EdgeDetection edgeDetection(width, height, false);
 BezierCurve curve;
 
 glm::mat4 projectionMatrix(1.0f);

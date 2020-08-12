@@ -59,8 +59,8 @@ void BezierCurve::Init()
     glPatchParameteri(GL_PATCH_VERTICES, 4);
 
     shader.UseShader();
-    shader.SetUniform("NumSegments", 10);
-    shader.SetUniform("NumStrips", 1);
+    shader.SetUniform("NumSegments", 30);
+    shader.SetUniform("NumStrips", 5);
     shader.SetUniform("LineColor", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
     solidShader.UseShader();
