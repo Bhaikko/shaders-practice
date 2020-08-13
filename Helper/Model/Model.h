@@ -24,6 +24,7 @@ class Model
         void LoadModel(const char* filePath);
         void GenerateTangents();
         void RenderModel();
+        void DrawAsPatch(GLint patchSize);
         ~Model();
 
     private:

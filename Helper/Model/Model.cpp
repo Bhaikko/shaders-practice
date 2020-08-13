@@ -238,6 +238,15 @@ void Model::GenerateTangents()
     glBindVertexArray(0);    
 }
 
+void Model::DrawAsPatch(GLint patchSize)
+{
+    glPatchParameteri(GL_PATCH_VERTICES, patchSize);
+
+    glBindVertexArray(VAO);
+        glDrawArrays(GL_PATCHES, 0, faces.size());
+    glBindVertexArray(0);
+}
+
 Model::~Model()
 {
     

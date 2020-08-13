@@ -13,7 +13,7 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
-	./Src/Chapter07/QuadTess/QuadTess.cpp \
+	./Src/Chapter07/ModelTess/ModelTess.cpp \
 	main.cpp \
 	
 run: 
