@@ -8,7 +8,7 @@ ModelTess::ModelTess(GLint width, GLint height)
 
 void ModelTess::Init()
 {
-    sphere.LoadModel("./Data/sphere.obj");
+    sphere.LoadModel("./Data/cube.obj");
 
     shader.CreateFromFiles(
         "./Src/Chapter07/ModelTess/shaders/ModelTess.vert",
@@ -20,7 +20,7 @@ void ModelTess::Init()
 
     shader.UseShader();
 
-    shader.SetUniform("TessLevel", 4);
+    shader.SetUniform("TessLevel", 8);
     shader.SetUniform("LineWidth", 0.8f);
     shader.SetUniform("LineColor", glm::vec4(0.05f, 0.0f, 0.05f, 1.0f));
     shader.SetUniform("LightPosition", glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
@@ -47,7 +47,7 @@ void ModelTess::Render(glm::mat4& view, glm::mat4& projection)
 
     glm::mat4 model(1.0f);
     SetMatrices(model, view, projection);
-    sphere.RenderModel();
+    sphere.DrawAsPatch(16);
 
     glFinish();
 }
