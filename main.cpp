@@ -22,8 +22,6 @@
 
 // Source Files for Testing Shaders
 
-#include "./Src/Chapter07/ModelTess/ModelTess.h"
-
 GLint width = 1366, height = 768;
 
 Window mainWindow(width, height);
@@ -35,7 +33,7 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-ModelTess modelTess(width, height);
+
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -61,7 +59,6 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    modelTess.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -87,7 +84,6 @@ int main(int argc, const char* argv[])
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
 
-        modelTess.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
