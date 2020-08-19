@@ -5,8 +5,8 @@ ShadowMap::ShadowMap(GLint width, GLint height)
     this->width = width;
     this->height = height;
 
-    this->shadowMapHeight = 2000;
-    this->shadowMapWidth = 2000;
+    this->shadowMapHeight = 800;
+    this->shadowMapWidth = 800;
 }
 
 void ShadowMap::Init()
@@ -62,8 +62,23 @@ void ShadowMap::Render(glm::mat4& view, glm::mat4& projection)
         glClear(GL_DEPTH_BUFFER_BIT);
         glViewport(0, 0, shadowMapWidth, shadowMapHeight);
         glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &pass1Index);
+
+        /*  
+            When creating the shadow map, we only rendered back faces. This is because of the fact that
+            if we were to render front faces, points on certain faces would have nearly the same depth
+            as the shadow map's depth, which can cause fluctuations between light and shadow across
+            faces that should be completely lit
+        */
+       
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
+
+            /*  
+                This of course will only work correctly if your meshes are completely closed. If that is not the
+                case, glPolygonOffset can be used to help the situation by offsetting the depth of the
+                geometry from that in the shadow map.
+            */
+
             // setting the scale and units used to calculate depth values
             glEnable(GL_POLYGON_OFFSET_FILL);
             glPolygonOffset(2.5f, 10.0f);
@@ -122,8 +137,8 @@ void ShadowMap::SetupFBO()
     glBindTexture(GL_TEXTURE_2D, depthTex);
 
         glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT24, shadowMapWidth, shadowMapHeight);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
         glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);

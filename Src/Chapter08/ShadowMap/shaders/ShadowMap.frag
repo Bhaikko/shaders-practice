@@ -48,6 +48,7 @@ void ShadeWithShadow()
     vec3 diffAndSpec = PhongModelDiffAndSpec();
 
     float shadow = 1.0;
+    float sum = 0.0;
 
     // This ensure that the fragment is inside the view frustum
     if (ShadowCoord.z >= 0.0) {
@@ -57,7 +58,13 @@ void ShadeWithShadow()
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LESS);
         */
-        shadow = textureProj(ShadowMap, ShadowCoord);
+        sum += textureProjOffset(ShadowMap, ShadowCoord, ivec2(-1, -1));
+        sum += textureProjOffset(ShadowMap, ShadowCoord, ivec2(-1,  1));
+        sum += textureProjOffset(ShadowMap, ShadowCoord, ivec2( 1,  1));
+        sum += textureProjOffset(ShadowMap, ShadowCoord, ivec2( 1, -1));
+
+
+        shadow = sum * 0.25;
     }
 
     // If fragment is in shadow, use ambient light only
