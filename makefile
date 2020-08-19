@@ -14,7 +14,7 @@ SRCS_CPP= \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
 	./Helper/Frustum/Frustum.cpp \
-	./Src/Chapter07/ModelTess/ModelTess.cpp \
+	./Src/Chapter08/ShadowMap/ShadowMap.cpp \
 	main.cpp \
 	
 run: 

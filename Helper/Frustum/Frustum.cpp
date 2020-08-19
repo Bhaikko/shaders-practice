@@ -2,8 +2,8 @@
 
 Frustum::Frustum()
 {
-    this->Orient(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    this->SetPerspective(50.0f, 1.0f, 0.5f, 100.0f);
+    // this->Orient(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    // this->SetPerspective(50.0f, 1.0f, 0.5f, 100.0f);
 }
 
 Frustum::~Frustum()
@@ -91,8 +91,6 @@ void Frustum::SetPerspective(float fovy, float ar, float nearDist, float farDist
     glBindVertexArray(0);
 
 }
-
-#include <iostream>
 
 glm::mat4 Frustum::GetViewMatrix() const
 {
