@@ -21,7 +21,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter08/ShadowMap/ShadowMap.h"
+#include "./Src/Chapter08/RandomSampling/RandomSampling.h"
 
 GLint width = 1366, height = 768;
 
@@ -34,7 +34,7 @@ GLfloat lastTime = 0.0f;
 CoordinateAxes coordinateAxes;
 Skybox skybox;
 
-ShadowMap shadowMap(width, height);
+RandomSampling randomSampling(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -60,7 +60,7 @@ int main(int argc, const char* argv[])
     skybox.Init();
 
     //  ################
-    shadowMap.Init();
+    randomSampling.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -85,7 +85,7 @@ int main(int argc, const char* argv[])
         // skybox.Render(viewMatrix, projectionMatrix);
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
-        shadowMap.Render(viewMatrix, projectionMatrix);
+        randomSampling.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
