@@ -153,6 +153,13 @@ void Model::RenderModel()
     
 }
 
+void Model::RenderAsAdjacency() 
+{
+    glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES_ADJACENCY, 0, faces.size());
+    glBindVertexArray(0);
+}
+
 void Model::GenerateTangents()
 {
     std::vector<glm::vec3> tan1Accum(vertices.size()); 

@@ -21,7 +21,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter08/RandomSampling/RandomSampling.h"
+#include "./Src/Chapter08/ShadowVolume/ShadowVolume.h"
 
 GLint width = 1366, height = 768;
 
@@ -31,10 +31,10 @@ Camera camera;
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 
-CoordinateAxes coordinateAxes;
-Skybox skybox;
+// CoordinateAxes coordinateAxes;
+// Skybox skybox;
 
-RandomSampling randomSampling(width, height);
+ShadowVolume shadowVolume(width, height);
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -56,11 +56,11 @@ int main(int argc, const char* argv[])
     glm::mat4 modelMatrix(1.0f);
     glm::mat4 viewMatrix(1.0f);
 
-    coordinateAxes.InitialiseCoordinateAxes();
-    skybox.Init();
+    // coordinateAxes.InitialiseCoordinateAxes();
+    // skybox.Init();
 
     //  ################
-    randomSampling.Init();
+    shadowVolume.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -85,7 +85,7 @@ int main(int argc, const char* argv[])
         // skybox.Render(viewMatrix, projectionMatrix);
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
-        randomSampling.Render(viewMatrix, projectionMatrix);
+        shadowVolume.Render(viewMatrix, projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
