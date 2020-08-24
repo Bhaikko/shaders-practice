@@ -6,7 +6,7 @@ class NormalMap
 {
     private:
         Model head;
-        Texture baseTexture, normalMap;
+        Texture baseTexture, normalMap, aoTex;
         Shader shader;
 
         float angle, rotSpeed;

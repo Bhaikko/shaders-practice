@@ -48,5 +48,10 @@ void main()
     vec3 norm = texture(NormalMapTex, TexCoord).xyz;
 
     norm.xy = 2.0 * norm.xy - 1.0;
-    FragColor = vec4(BlinnPhong(norm), 1.0);
+    vec3 diffuse = BlinnPhong(norm);
+
+    vec4 aoFactor = texture(AOTex, TexCoord);
+
+    // FragColor = vec4(diffuse * aoFactor.r, 1.0);
+    FragColor = vec4(diffuse * aoFactor.r, 1.0);
 }

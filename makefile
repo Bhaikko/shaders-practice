@@ -14,7 +14,7 @@ SRCS_CPP= \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
 	./Helper/Frustum/Frustum.cpp \
-	./Src/Chapter08/AmbientOcculsion/AmbientOcculsion.cpp \
+	./Src/Chapter05/NormalMap/NormalMap.cpp \
 	main.cpp \
 	
 run: 

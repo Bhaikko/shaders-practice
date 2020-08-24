@@ -13,6 +13,7 @@ void NormalMap::Init()
 
     baseTexture.LoadTexture("./Data/Textures/ogre_diffuse.png");
     normalMap.LoadTexture("./Data/Textures/ogre_normalmap.png");
+    aoTex.LoadTexture("./Data/Textures/ao.png", GL_RGB);
 
     shader.CreateFromFiles(
         "./Src/Chapter05/NormalMap/shaders/NormalMap.vert",
@@ -70,6 +71,7 @@ void NormalMap::Render(glm::mat4 view, glm::mat4 projection)
 
     baseTexture.UseTexture(GL_TEXTURE0);
     normalMap.UseTexture(GL_TEXTURE1);
+    aoTex.UseTexture(GL_TEXTURE2);
 
     head.RenderModel();
 }
