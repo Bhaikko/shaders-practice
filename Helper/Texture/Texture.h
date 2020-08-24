@@ -14,7 +14,7 @@ public:
 	Texture();
 	~Texture();
 
-	void LoadTexture(std::string fileLocation);
+	void LoadTexture(std::string fileLocation, GLenum textureChannels = GL_RGBA);
 	void LoadCubMap(std::string files[]);
 	void UseTexture(GLenum textureUnit);
 	void UseCubeMap(GLenum textureUnit);

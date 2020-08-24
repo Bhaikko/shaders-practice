@@ -7,6 +7,7 @@ in vec3 ViewDir;
 // This binding refers to texture unit bind using glActiveTexture(GL_TEXTURE0)
 layout (binding = 0) uniform sampler2D ColorTex;
 layout (binding = 1) uniform sampler2D NormalMapTex;
+layout (binding = 2) uniform sampler2D AOTex;
 
 uniform struct LightInfo {
     vec4 Position;

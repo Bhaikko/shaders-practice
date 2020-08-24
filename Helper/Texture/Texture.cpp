@@ -9,7 +9,7 @@ Texture::Texture()
 }
 
 
-void Texture::LoadTexture(std::string fileLocation)
+void Texture::LoadTexture(std::string fileLocation, GLenum textureChannels)
 {
 	unsigned char* texData = stbi_load(fileLocation.c_str(), &width, &height, &bitDepth, 0);
 	if (!texData) {
@@ -25,7 +25,7 @@ void Texture::LoadTexture(std::string fileLocation)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+		glTexImage2D(GL_TEXTURE_2D, 0, textureChannels, width, height, 0, textureChannels, GL_UNSIGNED_BYTE, texData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 0);	

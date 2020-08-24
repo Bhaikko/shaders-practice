@@ -14,7 +14,7 @@ SRCS_CPP= \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
 	./Helper/Frustum/Frustum.cpp \
-	./Src/Chapter08/ShadowVolume/ShadowVolume.cpp \
+	./Src/Chapter08/AmbientOcculsion/AmbientOcculsion.cpp \
 	main.cpp \
 	
 run: 
