@@ -14,7 +14,7 @@ SRCS_CPP= \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
 	./Helper/Frustum/Frustum.cpp \
-	./Src/Chapter05/NormalMap/NormalMap.cpp \
+	./Src/Chapter09/NoiseTexture/NoiseTexture.cpp \
 	main.cpp \
 	
 run: 

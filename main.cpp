@@ -21,7 +21,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter05/NormalMap/NormalMap.h"
+#include "./Src/Chapter09/NoiseTexture/NoiseTexture.h"
 
 GLint width = 1366, height = 768;
 
@@ -34,7 +34,7 @@ GLfloat lastTime = 0.0f;
 // CoordinateAxes coordinateAxes;
 // Skybox skybox;
 
-NormalMap normalMap;
+NoiseTexture noiseTexture;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -60,7 +60,7 @@ int main(int argc, const char* argv[])
     // skybox.Init();
 
     //  ################
-    normalMap.Init();
+    noiseTexture.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -85,7 +85,7 @@ int main(int argc, const char* argv[])
         // skybox.Render(viewMatrix, projectionMatrix);
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
-        normalMap.Render(viewMatrix, projectionMatrix);
+        noiseTexture.Render(projectionMatrix);
 
         mainWindow.SwapBuffers();
     }
