@@ -20,6 +20,7 @@ void NoiseTexture::Init()
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, noiseTex);
+
 }
 
 void NoiseTexture::Render(glm::mat4& projection) 
