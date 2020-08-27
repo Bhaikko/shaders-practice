@@ -44,10 +44,6 @@ vec3 PhongModel( vec3 pos, vec3 norm )
     return ambient + diffuse + spec;
 }
 
-float Luminance(vec3 color) {
-    return dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
-}
-
 subroutine(RenderPassType)
 vec4 Pass1()
 {
@@ -59,7 +55,6 @@ vec4 Pass2()
 {
     vec4 noise = texture(NoiseTex, TexCoord);
     vec4 color = texture(RenderTex, TexCoord);
-    float green = Luminance(color.rgb);
 
     // Creating Binocular
     float dist1 = length(gl_FragCoord.xy - vec2(Width / 4.0, Height / 2.0));
@@ -69,7 +64,13 @@ vec4 Pass2()
         green = 0.0;
     }
 
-    return vec4(0.0, green * clamp(noise.a, 0.0, 1.0), 0.0, 1.0);
+    return vec4(
+        0.0,        
+        color.g * clamp(noise.a, 0.0, 1.0), 
+        0.0, 
+        1.0
+    );
+
 }
 
 void main()
