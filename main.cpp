@@ -21,7 +21,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter09/NightVision/NightVision.h"
+#include "./Src/Chapter10/Wave/Wave.h"
 
 GLint width = 1366, height = 768;
 
@@ -34,7 +34,7 @@ GLfloat lastTime = 0.0f;
 // CoordinateAxes coordinateAxes;
 // Skybox skybox;
 
-NightVision nightVision(width, height);
+Wave wave;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -60,7 +60,7 @@ int main(int argc, const char* argv[])
     // skybox.Init();
 
     //  ################
-    nightVision.Init();
+    wave.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -85,8 +85,9 @@ int main(int argc, const char* argv[])
         // skybox.Render(viewMatrix, projectionMatrix);
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
 
-        nightVision.Render(viewMatrix, projectionMatrix);
-
+        wave.Render(viewMatrix, projectionMatrix);
+        wave.Update(deltaTime);
+        
         mainWindow.SwapBuffers();
     }
     

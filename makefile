@@ -14,7 +14,7 @@ SRCS_CPP= \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
 	./Helper/Frustum/Frustum.cpp \
-	./Src/Chapter09/NightVision/NightVision.cpp \
+	./Src/Chapter10/Wave/Wave.cpp \
 	main.cpp \
 	
 run: 
