@@ -10,13 +10,18 @@ void Wave::Init()
 {
     shader.CreateFromFiles(
         "./Src/Chapter10/Wave/shaders/Wave.vert",
-        "./Src/Chapter10/Wave/shaders/Wave.frag"
+        "./Src/Chapter10/Wave/shaders/Wave.frag",
+        "",
+        // "./Src/Chapter10/Wave/shaders/Wave.geom",
+        "./Src/Chapter10/Wave/shaders/Wave.tese",
+        "./Src/Chapter10/Wave/shaders/Wave.tesc"
     );
 
     plane.LoadModel("./Data/plane.obj");
 
     shader.UseShader();
     shader.SetUniform("Light.Intensity", glm::vec3(1.0f, 1.0f, 1.0f));
+
     
 }
 
@@ -33,7 +38,8 @@ void Wave::Render(glm::mat4& view, glm::mat4& projection)
     
     glm::mat4 model(1.0f);
     SetMatrices(model, view, projection);
-    plane.RenderModel();
+    // plane.RenderModel();
+    plane.DrawAsPatch(3);
 }
 
 void Wave::Update(float deltaTime) 

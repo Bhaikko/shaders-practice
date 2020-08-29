@@ -14,7 +14,7 @@ uniform struct MaterialInfo {
 
 in vec4 Position;
 in vec3 Normal;
-in vec2 TexCoord;
+in vec2 TETexCoord;
 
 layout ( location = 0 ) out vec4 FragColor;
 
