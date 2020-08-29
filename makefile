@@ -13,6 +13,7 @@ SRCS_CPP= \
 	./Helper/CoordinateAxes/CoordinateAxes.cpp \
 	./Helper/Skybox/Skybox.cpp \
 	./Helper/Model/Model.cpp \
+	./Helper/Grid/Grid.cpp \
 	./Helper/Frustum/Frustum.cpp \
 	./Src/Chapter10/Wave/Wave.cpp \
 	main.cpp \

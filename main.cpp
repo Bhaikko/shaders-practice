@@ -14,6 +14,7 @@
 #include "./Helper/Window/Window.h"
 #include "./Helper/Camera/Camera.h"
 #include "./Helper/Shader/Shader.h"
+#include "./Helper/Grid/Grid.h"
 
 #include "./Helper/commonValues.cpp"
 
@@ -33,6 +34,7 @@ GLfloat lastTime = 0.0f;
 
 // CoordinateAxes coordinateAxes;
 // Skybox skybox;
+Grid grid(20, 20);
 
 Wave wave;
 
@@ -58,6 +60,7 @@ int main(int argc, const char* argv[])
 
     // coordinateAxes.InitialiseCoordinateAxes();
     // skybox.Init();
+    grid.Init();
 
     //  ################
     wave.Init();
@@ -84,6 +87,7 @@ int main(int argc, const char* argv[])
 
         // skybox.Render(viewMatrix, projectionMatrix);
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
+        grid.Render(viewMatrix, projectionMatrix);
 
         wave.Render(viewMatrix, projectionMatrix);
         wave.Update(deltaTime);
