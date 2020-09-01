@@ -22,7 +22,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter10/Wave/Wave.h"
+#include "./Src/Chapter10/ParticleSystem/ParticleSystem.h"
 
 GLint width = 1366, height = 768;
 
@@ -36,7 +36,7 @@ GLfloat lastTime = 0.0f;
 // Skybox skybox;
 Grid grid(20, 20);
 
-Wave wave;
+ParticleSystem particleSystem;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -63,7 +63,7 @@ int main(int argc, const char* argv[])
     grid.Init();
 
     //  ################
-    wave.Init();
+    particleSystem.Init();
     //  ################
 
     glEnable(GL_DEPTH_TEST);
@@ -89,8 +89,8 @@ int main(int argc, const char* argv[])
         // coordinateAxes.RenderCoordinateAxes(modelMatrix, projectionMatrix, viewMatrix);
         grid.Render(viewMatrix, projectionMatrix);
 
-        wave.Render(viewMatrix, projectionMatrix);
-        wave.Update(deltaTime);
+        particleSystem.Render(viewMatrix, projectionMatrix);
+        particleSystem.Update(deltaTime);
         
         mainWindow.SwapBuffers();
     }
