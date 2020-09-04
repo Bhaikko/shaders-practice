@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 #include <GL/glew.h>
 
@@ -24,7 +25,8 @@ public:
 		std::string fShader, 
 		std::string gShader = "", 
 		std::string tesShader = "", 
-		std::string tcsShader = ""
+		std::string tcsShader = "",
+		std::vector<const char*>* transformFeedbackOutputs = nullptr
 	);
 
 	~Shader();
@@ -38,7 +40,8 @@ private:
 		std::string fShaderCode, 
 		std::string gShaderCode = "", 
 		std::string tesShaderCode = "", 
-		std::string tcsShaderCode = ""
+		std::string tcsShaderCode = "",
+		std::vector<const char*>* transformFeedbackOutputs = nullptr
 	);
 
 public:

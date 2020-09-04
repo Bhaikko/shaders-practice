@@ -10,7 +10,8 @@ void Shader::CreateFromFiles(
 	std::string fShader, 
 	std::string gShader, 
 	std::string tesShader, 
-	std::string tcsShader
+	std::string tcsShader,
+	std::vector<const char*>* transformFeedbackOutputs
 ) {
 
 	std::string vShaderCode = readShaderFromFile(vShader.c_str());
@@ -101,7 +102,8 @@ void Shader::CompileShaders(
 	std::string fShaderCode, 
 	std::string gShaderCode, 
 	std::string tesShaderCode, 
-	std::string tcsShaderCode
+	std::string tcsShaderCode,
+	std::vector<const char*>* transformFeedbackOutputs
 ) {
 	shader = glCreateProgram(); 
 
@@ -124,7 +126,18 @@ void Shader::CompileShaders(
 	if (tcsShaderCode != "") {
 		AddShader(shader, tcsShaderCode.c_str(), GL_TESS_CONTROL_SHADER);
 	}
-	
+
+	// Setting up transform feedback if transformFeedbackOutputs is not nullptr
+	// Must be done before linking the program
+	if (transformFeedbackOutputs) {
+		glTransformFeedbackVaryings(
+			shader, 
+			transformFeedbackOutputs->size(), 
+			transformFeedbackOutputs->data(),
+			GL_SEPARATE_ATTRIBS 
+		);
+	}
+
 	GLint result = 0;
 	GLchar eLog[1024] = { 0 };
 
