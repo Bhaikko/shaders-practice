@@ -107,6 +107,7 @@ void Model::LoadModelDataIntoBuffers()
 
         delete data;
         index = 0;
+        positionBufferID = VBO;
         
         // Binding UVs data
         data = new GLfloat[faces.size() * 2];
@@ -123,6 +124,8 @@ void Model::LoadModelDataIntoBuffers()
         
         delete data;
         index = 0;
+
+        textureBufferID = VBO;
 
         // Binding Normal Data
         data = new GLfloat[faces.size() * 3];
@@ -141,8 +144,15 @@ void Model::LoadModelDataIntoBuffers()
         delete data;
         index = 0;
 
+        normalBufferID = VBO;
+
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
+
+GLuint Model::GetVaoID() 
+{
+    return this->VAO;
 }
 
 void Model::RenderModel()

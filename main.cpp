@@ -22,7 +22,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter10/TransformFeedback/TransformFeedback.h"
+#include "./Src/Chapter10/InstancedParticle/InstancedParticle.h"
 
 GLint width = 1366, height = 768;
 
@@ -36,7 +36,7 @@ GLfloat lastTime = 0.0f;
 // Skybox skybox;
 Grid grid(20, 20);
 
-TransformFeedback particleSystem;
+Instanced particleSystem;
 
 glm::mat4 projectionMatrix(1.0f);
 

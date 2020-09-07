@@ -30,6 +30,7 @@ class Model
 
     private:
         GLuint VAO;
+        GLuint positionBufferID, normalBufferID, textureBufferID;
     
         std::vector<glm::vec3> vertices;
         std::vector<glm::vec2> uvs;
@@ -39,4 +40,11 @@ class Model
 
     private:
         void LoadModelDataIntoBuffers();
+
+    public:
+        GLuint GetVaoID();
+        GLuint GetPositionBuffer() { return this->positionBufferID; }
+        GLuint GetTextureBuffer() { return this->textureBufferID; }
+        GLuint GetNormalBuffer() { return this->normalBufferID; }
+        GLuint GetNumberOfVertices() { return this->faces.size(); }
 };
