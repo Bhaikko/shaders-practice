@@ -41,6 +41,14 @@ void Shader::CreateFromFiles(
 	);
 }
 
+void Shader::CreateComputeShader(std::string cShader) 
+{
+	std::string cShaderCode = readShaderFromFile(cShader.c_str());
+
+	CompileShaders(cShaderCode);
+
+}
+
 Shader::~Shader()
 {
 
@@ -138,9 +146,27 @@ void Shader::CompileShaders(
 		);
 	}
 
+	LinkProgram();
+	
+}
+
+void Shader::CompileShaders(std::string cShaderCode) 
+{
+	shader = glCreateProgram();
+
+	if (!shader) {
+		printf("Error creating shader program.\n");
+	}
+
+	AddShader(shader, cShaderCode.c_str(), GL_COMPUTE_SHADER);
+
+	LinkProgram();
+}
+
+void Shader::LinkProgram() 
+{
 	GLint result = 0;
 	GLchar eLog[1024] = { 0 };
-
 	glLinkProgram(shader);  
 	glGetProgramiv(shader, GL_LINK_STATUS, &result);    
 	if (!result) {

@@ -28,6 +28,7 @@ public:
 		std::string tcsShader = "",
 		std::vector<const char*>* transformFeedbackOutputs = nullptr
 	);
+	void CreateComputeShader(std::string cShader);
 
 	~Shader();
 
@@ -43,6 +44,8 @@ private:
 		std::string tcsShaderCode = "",
 		std::vector<const char*>* transformFeedbackOutputs = nullptr
 	);
+	void CompileShaders(std::string cShaderCode);
+	void LinkProgram();
 
 public:
 	GLuint GetShaderProgramID() { return this->shader; }
