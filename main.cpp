@@ -22,7 +22,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter10/Fire/Fire.h"
+#include "./Src/Chapter11/Particles/Particles.h"
 
 GLint width = 1366, height = 768;
 
@@ -36,7 +36,7 @@ GLfloat lastTime = 0.0f;
 // Skybox skybox;
 Grid grid(20, 20);
 
-Fire particleSystem;
+Particle particleSystem;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -82,7 +82,7 @@ int main(int argc, const char* argv[])
 
         viewMatrix = camera.CalculateViewMatrix();
         
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // skybox.Render(viewMatrix, projectionMatrix);

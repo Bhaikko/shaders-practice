@@ -15,7 +15,7 @@ SRCS_CPP= \
 	./Helper/Model/Model.cpp \
 	./Helper/Grid/Grid.cpp \
 	./Helper/Frustum/Frustum.cpp \
-	./Src/Chapter10/Fire/Fire.cpp \
+	./Src/Chapter11/Particles/Particles.cpp \
 	main.cpp \
 	
 run: 
