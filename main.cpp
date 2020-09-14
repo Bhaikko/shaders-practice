@@ -22,7 +22,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter11/Particles/Particles.h"
+#include "./Src/Chapter11/Cloth/Cloth.h"
 
 GLint width = 1366, height = 768;
 
@@ -36,7 +36,7 @@ GLfloat lastTime = 0.0f;
 // Skybox skybox;
 Grid grid(20, 20);
 
-Particle particleSystem;
+Cloth particleSystem;
 
 glm::mat4 projectionMatrix(1.0f);
 
