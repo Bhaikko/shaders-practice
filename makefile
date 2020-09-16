@@ -15,7 +15,8 @@ SRCS_CPP= \
 	./Helper/Model/Model.cpp \
 	./Helper/Grid/Grid.cpp \
 	./Helper/Frustum/Frustum.cpp \
-	./Src/Chapter11/Cloth/Cloth.cpp \
+	./Src/Chapter11/EdgeDetection/EdgeDetection.cpp \
+	./Src/Chapter04/PBR/PBR.cpp \
 	main.cpp \
 	
 run: 

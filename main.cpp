@@ -22,7 +22,7 @@
 #include "./Helper/Skybox/Skybox.h"
 
 // Source Files for Testing Shaders
-#include "./Src/Chapter11/Cloth/Cloth.h"
+#include "./Src/Chapter04/PBR/PBR.h"
 
 GLint width = 1366, height = 768;
 
@@ -36,7 +36,8 @@ GLfloat lastTime = 0.0f;
 // Skybox skybox;
 Grid grid(20, 20);
 
-Cloth particleSystem;
+// Edge particleSystem(width, height);
+PBR particleSystem;
 
 glm::mat4 projectionMatrix(1.0f);
 
@@ -82,7 +83,7 @@ int main(int argc, const char* argv[])
 
         viewMatrix = camera.CalculateViewMatrix();
         
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // skybox.Render(viewMatrix, projectionMatrix);
@@ -90,7 +91,7 @@ int main(int argc, const char* argv[])
         grid.Render(viewMatrix, projectionMatrix);
 
         particleSystem.Render(viewMatrix, projectionMatrix);
-        particleSystem.Update(deltaTime);
+        // particleSystem.Update(deltaTime);
         
         mainWindow.SwapBuffers();
     }
